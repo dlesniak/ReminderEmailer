@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  allDay: false
+  start: 2013-03-17 18:23:24
+  end: 2013-03-17 18:23:24
+  repeat: 1
+  user: 
+
+two:
+  title: MyString
+  allDay: false
+  start: 2013-03-17 18:23:24
+  end: 2013-03-17 18:23:24
+  repeat: 1
+  user: 
