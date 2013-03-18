@@ -7,8 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
-<%= yield %>
-
+  <div class="container">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Reminder Emailer</a>
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Go Nowhere</a></li>
+          <li><a href="#">Also Nowhere</a></li>
+        </ul>
+      </div>
+    </div>
+  <%= yield %>
+  </div>
 </body>
 </html>

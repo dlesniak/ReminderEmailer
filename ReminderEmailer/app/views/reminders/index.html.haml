@@ -1,0 +1,21 @@
+%div{:class => 'row'}
+  %div{:class => 'span8', :id => 'calendar'}
+  %div{:class => 'span2'}
+    %div{:class => 'well'}
+      %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
+%div{:id => 'newReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
+  %div{:class => 'modal-header'}
+    %button{:type => 'button', :class => 'close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
+    %h3{:id => 'New Reminder'} Create a new Reminder
+  %div{:class => 'modal-body'}
+    = form_tag reminders_path do
+
+      = label :reminder, :title, 'Reminder Title'
+      = text_field :reminder, 'title'
+
+      = label :reminder, :start, 'Start Date and Time'
+      = text_field :reminder, :start, :class => 'date_picker_field'
+      
+      %div{:class => 'modal-footer'}
+        = submit_tag 'Save Reminder', :class => 'btn btn-primary'
+        %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
