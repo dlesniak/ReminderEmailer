@@ -1,0 +1,24 @@
+User Stories
+
+==================
+Creating Reminders
+==================
+As a user, I want to be able to create reminders on arbitrary dates so I can organize my life
+As a user, I want to be able to receive an email reminder whenever one of my reminders occurs, to remember my responsibilities
+As a user, I want to be able to repeat reminders on arbitrary intervals, so I can easily create repetitive emails easily
+As a user, I want to be able to delete reminders, so I can stop receiving emails when I no longer need them
+As a user, I want to be able to change reminders, so I can receive emails which reflect my needs at all times
+As a user, I want to be able to customize the message I receive in my reminder email, so that I can remind myself appropriately
+
+==================
+Organization Stuff
+==================
+As an organization leader, I want to be able to create an organization of other users so I can group my team easily
+As an organization leader, I want to be able to set reminders for entire organizations, so I can remind team members of their responsibilities
+As an organization leader, I want to be able to 
+
+==============
+Login Business
+==============
+As a user, I want to be able to login so I can secure my reminders from others
+As a user, I want to be able to change my password at will so that my reminders can remain secure
