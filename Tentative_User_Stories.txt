@@ -3,22 +3,45 @@ User Stories
 ==================
 Creating Reminders
 ==================
-As a user, I want to be able to create reminders on arbitrary dates so I can organize my life
+As a user, I want to be able to create reminders on arbitrary dates and times so I can organize my life
 As a user, I want to be able to receive an email reminder whenever one of my reminders occurs, to remember my responsibilities
 As a user, I want to be able to repeat reminders on arbitrary intervals, so I can easily create repetitive emails easily
 As a user, I want to be able to delete reminders, so I can stop receiving emails when I no longer need them
-As a user, I want to be able to change reminders, so I can receive emails which reflect my needs at all times
+As a user, I want to be able to edit reminders, so I can receive emails which reflect my needs at all times
 As a user, I want to be able to customize the message I receive in my reminder email, so that I can remind myself appropriately
+As a user, I want to receive my reminders within one minute of their scheduled time, so that I can be confident in my scheduling
+
 
 ==================
 Organization Stuff
 ==================
 As an organization leader, I want to be able to create an organization of other users so I can group my team easily
 As an organization leader, I want to be able to set reminders for entire organizations, so I can remind team members of their responsibilities
-As an organization leader, I want to be able to 
+As an organization leader, I want to be able to set member permissions, so only certain organization members can edit reminders
+
+===========
+Event Stuff
+===========
+As a user, I want to be able to sign up for events which dynamically create reminders, so that I can be informed of news without explicitly signing up for it
+As a user, I want to be able to request new event functionality from developers, so that I can shape the future improvement of the service
+
+============
+Plugin Stuff
+============
+As a developer, I want to be able to create plugins in a standard format, so that a plugin can be written by anyone who follows the rules
+As a developer, I want to be able to write plugins which access arbitrary RESTful api's on the web, and create reminders based on them
+As a developer, I want to be able to commit plugins to a common repository which will expose them to all users who are signing up for them
+As a developer, I want to expose a secure RESTful api to bot scripts, which execute plugins and create reminders on event completion
+
+=================
+Development Stuff
+=================
+As a developer, I want to expose a secure RESTful api to bot scripts, which send email reminders
+
 
 ==============
 Login Business
 ==============
 As a user, I want to be able to login so I can secure my reminders from others
 As a user, I want to be able to change my password at will so that my reminders can remain secure
+As a user, I want to be able to forget my password, and change it using security questions and answers
