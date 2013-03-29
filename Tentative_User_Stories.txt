@@ -38,7 +38,6 @@ Development Stuff
 =================
 As a developer, I want to expose a secure RESTful api to bot scripts, which send email reminders
 
-
 ==============
 Login Business
 ==============
