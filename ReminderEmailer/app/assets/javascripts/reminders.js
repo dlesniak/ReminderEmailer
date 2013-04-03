@@ -12,5 +12,11 @@ $(document).ready(function() {
   })
 
   $('.date_picker_field').datetimepicker();
-});
 
+  $('#save_reminder_link').on('click', function(e) {
+    // stop the default linking behavior
+    e.preventDefault();
+    // submit the form
+    $('#new_reminder_form').submit();
+  });
+});
