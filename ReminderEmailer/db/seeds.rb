@@ -10,5 +10,5 @@ reminders = [{:title => "1", :allDay => false, :start => DateTime.new(2013,4,3,1
             ]
 
 reminders.each do |reminder|
-  Reminders.create!(reminder)
+  Reminder.create!(reminder)
 end

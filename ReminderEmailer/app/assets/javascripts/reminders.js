@@ -1,5 +1,15 @@
 $(document).ready(function() {
   $('#calendar').fullCalendar({
+    editable: true,
+    eventSources: [
+      {
+        url: '/reminders.json',
+        type: 'GET',
+        error: function() {
+          alert("There was an error loading events!");
+        }
+      }
+    ],
     dayClick: function(date, allDay, jsEvent, view) {
       alert(date + ' has been clicked!');
     },
@@ -8,8 +18,15 @@ $(document).ready(function() {
     },
     eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
 
+    },
+    loading: function(isLoading, view) {
+      // The started loading and done loading callback
+    },
+    eventDataTransform: function(eventData) {
+      // Can modify the data if it comes in a format fullcalendar doesn't understand
+      return eventData;
     }
-  })
+  });
 
   $('.date_picker_field').datetimepicker();
 
