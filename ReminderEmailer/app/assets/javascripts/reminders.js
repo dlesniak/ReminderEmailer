@@ -14,10 +14,14 @@ $(document).ready(function() {
       alert(date + ' has been clicked!');
     },
     eventClick: function(event, jsEvent, view) {
-      alert(event + ' has been clicked!');
+      // Fill in the form with data from the event
+      $('#edit_reminder_title').val(event.title);
+      $('#edit_reminder_start').val(event.start);
+      $('#edit_reminder_end').val(event.end);
+      $('#editReminder').modal('show');
     },
     eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
-
+      alert(dayDelta);
     },
     loading: function(isLoading, view) {
       // The started loading and done loading callback
