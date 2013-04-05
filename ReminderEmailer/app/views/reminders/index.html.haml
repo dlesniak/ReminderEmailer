@@ -16,6 +16,9 @@
 
       = label :reminder, :start, 'Start Date and Time'
       = text_field :reminder, :start, :class => 'date_picker_field'
+
+      = label :reminder, :end, 'End Date and Time'
+      = text_field :reminder, :end, :class => 'date_picker_field'
       
   %div{:class => 'modal-footer'}
     %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
