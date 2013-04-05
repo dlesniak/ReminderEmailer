@@ -53,6 +53,8 @@ $(document).ready(function() {
       transformedData['allDay'] = eventData.allDay;
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
+      transformedData['color'] = '#049CDB';
+      transformedData['textColor'] = '#000000'
 
       return transformedData;
     }
@@ -63,12 +65,12 @@ $(document).ready(function() {
     timeFormat: 'HH:mm:ss z',
     useLocalTimezone: true,
     showTimezone: true,
-    timezone: 'CT',
+    timezone: 'CDT',
     timezoneList: [ 
-                    { value: 'ET', label: 'Eastern'}, 
-                    { value: 'CT', label: 'Central' }, 
-                    { value: 'MT', label: 'Mountain' }, 
-                    { value: 'PT', label: 'Pacific' } 
+                    { value: 'EST', label: 'Eastern'}, 
+                    { value: 'CDT', label: 'Central' }, 
+                    { value: 'MST', label: 'Mountain' }, 
+                    { value: 'PST', label: 'Pacific' } 
                   ]
   });
 
@@ -86,7 +88,6 @@ $(document).ready(function() {
     // submit the form
     var form = $('#edit_reminder_form');
     var sub_data = form.serialize();
-    console.log(sub_data);
     $.ajax({
       url: form.attr('action'),
       type: 'PUT',
