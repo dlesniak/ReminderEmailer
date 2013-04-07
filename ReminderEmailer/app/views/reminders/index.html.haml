@@ -3,19 +3,44 @@
   %div{:class => 'span2'}
     %div{:class => 'well'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
+/ This is the new reminder modal
 %div{:id => 'newReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
   %div{:class => 'modal-header'}
     %button{:type => 'button', :class => 'close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
     %h3{:id => 'New Reminder'} Create a new Reminder
   %div{:class => 'modal-body'}
-    = form_tag reminders_path do
+    = form_tag reminders_path, {:id => 'new_reminder_form'} do
 
       = label :reminder, :title, 'Reminder Title'
       = text_field :reminder, 'title'
 
       = label :reminder, :start, 'Start Date and Time'
       = text_field :reminder, :start, :class => 'date_picker_field'
+
+      = label :reminder, :end, 'End Date and Time'
+      = text_field :reminder, :end, :class => 'date_picker_field'
       
-      %div{:class => 'modal-footer'}
-        = submit_tag 'Save Reminder', :class => 'btn btn-primary'
-        %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
+  %div{:class => 'modal-footer'}
+    %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
+    %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
+
+/ This is the edit reminder modal, and we're violating DRY with this
+%div{:id => 'editReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
+  %div{:class => 'modal-header'}
+    %button{:type => 'button', :class => 'close edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
+    %h3{:id => 'New Reminder'} Create a new Reminder
+  %div{:class => 'modal-body'}
+    = form_tag reminders_path, :id => 'edit_reminder_form', :method => 'put' do
+
+      = label :edit_reminder, :title, 'Reminder Title'
+      = text_field :edit_reminder, 'title'
+
+      = label :edit_reminder, :start, 'Start Date and Time'
+      = text_field :edit_reminder, :start, :class => 'date_picker_field'
+
+      = label :edit_reminder, :end, 'End Date and Time'
+      = text_field :edit_reminder, :end, :class => 'date_picker_field'
+      
+  %div{:class => 'modal-footer'}
+    %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
+    %button{:class => 'btn edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
