@@ -78,7 +78,17 @@ $(document).ready(function() {
     // stop the default linking behavior
     e.preventDefault();
     // submit the form
-    $('#new_reminder_form').submit();
+    //$('#new_reminder_form').submit();
+    var form = $('#new_reminder_form');
+    var sub_data = form.serialize();
+    $.ajax({
+      url: form.attr('action'),
+      type: 'POST',
+      data: sub_data,
+      dataType: "JSON"
+    }).success( function(json) {
+      $("#calendar").fullCalendar("refetchEvents");
+    });
   });
 
   // More DRY violations

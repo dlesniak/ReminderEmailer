@@ -15,4 +15,9 @@ class RemindersController < ApplicationController
     @reminder.update_attributes!(params[:edit_reminder])
     render :json => @reminder
   end
+
+  def create
+    @reminder = Reminder.create!(params[:reminder])
+    render :json => @reminder
+  end
 end
