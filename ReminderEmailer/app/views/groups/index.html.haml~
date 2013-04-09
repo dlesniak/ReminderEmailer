@@ -1,0 +1,15 @@
+-#  This file is app/views/groups/index.html.haml
+%h1 All Groups
+
+%table#groups
+  %thead
+    %tr
+      %th Group Name
+      %th Visit Group Page 
+  %tbody
+    - @groups.each do |group|
+      %tr
+        %td= movie.name 
+        %td= link_to "More about #{group.name}", group_path(group)
+
+= link_to 'Create New Group', new_group_path
