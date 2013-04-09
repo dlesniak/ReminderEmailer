@@ -1,5 +1,6 @@
 class Reminder < ActiveRecord::Base
   belongs_to :user
+  belongs_to :group
 
   def self.in_range(start_datetime, end_datetime)
     # Need to filter by user as well probably
