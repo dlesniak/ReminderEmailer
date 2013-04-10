@@ -1,8 +1,7 @@
 -# in app/views/groups/show.html.haml
-
 %h2 Details about #{@group.name}
 
-%table#group_users
+%table{:id => 'group_users', :class => 'table'}
   %thead
     %tr
       %th Member Name
@@ -13,10 +12,13 @@
         %td= group_user.email 
         %td= link_to "More about #{group_user.email}"
 
-%p= @group.description
-%br
-= link_to 'Join Group'
-%br
-= link_to 'Edit Members', edit_group_path(@group)
-= button_to 'Delete', group_path(@group), :method => :delete, :confirm => 'Are you sure?'
-= link_to 'Back to Groups list', groups_path
+%div{:class => 'well'}
+  %h5 Description
+  %p 
+    =@group.description
+  %div
+    = link_to 'Join Group'
+    = link_to 'Edit Members', edit_group_path(@group)
+    = button_to 'Delete', group_path(@group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
+%div
+  = link_to 'Back to Groups list', groups_path

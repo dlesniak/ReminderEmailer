@@ -9,7 +9,7 @@
     %button{:type => 'button', :class => 'close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
     %h3{:id => 'New Reminder'} Create a new Reminder
   %div{:class => 'modal-body'}
-    = form_tag reminders_path, {:id => 'new_reminder_form'} do
+    = form_tag reminders_path, :id => 'new_reminder_form', :class => 'modal-form' do
 
       = label :reminder, :title, 'Reminder Title'
       = text_field :reminder, 'title'
@@ -19,6 +19,9 @@
 
       = label :reminder, :end, 'End Date and Time'
       = text_field :reminder, :end, :class => 'date_picker_field'
+
+      = label :reminder, :customhtml, 'Custom Email HTML'
+      = text_area :reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
     %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
@@ -30,7 +33,7 @@
     %button{:type => 'button', :class => 'close edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
     %h3{:id => 'New Reminder'} Create a new Reminder
   %div{:class => 'modal-body'}
-    = form_tag reminders_path, :id => 'edit_reminder_form', :method => 'put' do
+    = form_tag reminders_path, :id => 'edit_reminder_form', :class => 'modal-form', :method => 'put' do
 
       = label :edit_reminder, :title, 'Reminder Title'
       = text_field :edit_reminder, 'title'
@@ -40,6 +43,11 @@
 
       = label :edit_reminder, :end, 'End Date and Time'
       = text_field :edit_reminder, :end, :class => 'date_picker_field'
+
+      = label :edit_reminder, :repeat, 'Repeat Interval'
+
+      = label :edit_reminder, :customhtml, 'Custom Email HTML'
+      = text_area :edit_reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
     %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder

@@ -24,6 +24,7 @@ $(document).ready(function() {
       $('#edit_reminder_title').val(event.title);
       $('#edit_reminder_start').val(event.start);
       $('#edit_reminder_end').val(event.end);
+      $('#edit_reminder_customhtml').val(event.customhtml);
       $('#editReminder').modal('show');
       clicked_event = event;
     },
@@ -53,6 +54,7 @@ $(document).ready(function() {
       transformedData['allDay'] = eventData.allDay;
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
+      transformedData['customhtml'] = eventData.customhtml;
       transformedData['color'] = '#049CDB';
       transformedData['textColor'] = '#000000'
 
@@ -122,7 +124,8 @@ function serializeReminder(reminder){
   var data = {
     'edit_reminder[title]': reminder.title,
     'edit_reminder[start]': reminder.start,
-    'edit_reminder[end]': reminder.end
+    'edit_reminder[end]': reminder.end,
+    'edit_reminder[customhtml]': reminder.customhtml
   }
   return data;
 };
