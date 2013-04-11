@@ -7,7 +7,7 @@ class RemindersController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @reminders }
-    end
+      end
   end
 
   def update
@@ -21,3 +21,4 @@ class RemindersController < ApplicationController
     render :json => @reminder
   end
 end
+# DANS COMMENT
