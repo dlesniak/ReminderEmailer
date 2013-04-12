@@ -1,0 +1,7 @@
+Feature: Allow users to create groups
+
+  As a: user
+  so that I can have reminder functionality for groups
+  I want to be able to create groups
+
+Background: I am on the groups index page
