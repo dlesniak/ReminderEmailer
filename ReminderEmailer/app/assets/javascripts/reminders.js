@@ -134,7 +134,7 @@ $(document).ready(function() {
         $('#fullcalendar').fullCalendar('removeEvents', json.id);
         $('#editReminder').modal('hide');
         clicked_event = null;
-        $('#calendar').fullCalendar('updateEvent', clicked_event);
+        $('#calendar').fullCalendar('refetchEvents');
       });
     }
   });
