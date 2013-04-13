@@ -56,8 +56,8 @@ $(document).ready(function() {
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
       transformedData['color'] = '#049CDB';
-      transformedData['textColor'] = '#000000'
-
+      transformedData['textColor'] = '#000000';
+      transformedData['attemptedDelete'] = false;
       return transformedData;
     }
   });
@@ -110,13 +110,33 @@ $(document).ready(function() {
       clicked_event.start = json.start;
       clicked_event.end = json.end;
       clicked_event.title = json.title;
+      clicked_event.customhtml = json.customhtml;
       //clicked_event.repeat = sub_data.repeat;
       $('#calendar').fullCalendar('updateEvent', clicked_event);
     });
   });
 
   $('.edit_close').on('click', function(e) {
+    clicked_event.attemptedDelete = false;
+    $('#delete_reminder_button').text("Delete Reminder");
     clicked_event = null;
+  });
+
+  $('#delete_reminder_button').on('click', function(e) {
+    if(!clicked_event.attemptedDelete){
+      $('#delete_reminder_button').text("Confirm Deletion");
+      clicked_event.attemptedDelete = true;
+    }else{
+      $.ajax({
+        url: '/reminders/' + clicked_event.id + '/',
+        type: 'DELETE'
+      }).success( function(json) {
+        $('#fullcalendar').fullCalendar('removeEvents', json.id);
+        $('#editReminder').modal('hide');
+        clicked_event = null;
+        $('#calendar').fullCalendar('updateEvent', clicked_event);
+      });
+    }
   });
 });
 

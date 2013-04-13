@@ -20,5 +20,11 @@ class RemindersController < ApplicationController
     @reminder = Reminder.create!(params[:reminder])
     render :json => @reminder
   end
+
+  def destroy
+    @reminder = Reminder.find params[:id]
+    @reminder.delete
+    render :json => @reminder
+  end
 end
 # DANS COMMENT

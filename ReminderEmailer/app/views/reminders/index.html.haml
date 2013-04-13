@@ -50,5 +50,6 @@
       = text_area :edit_reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
+    %a{:href => '#', :id => 'delete_reminder_button', :class => 'btn btn-danger delete_btn', :'data_dismiss' => 'modal'}Delete Reminder
     %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
     %button{:class => 'btn edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
