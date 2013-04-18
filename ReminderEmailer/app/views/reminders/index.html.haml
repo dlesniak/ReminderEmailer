@@ -24,7 +24,8 @@
       = text_area :reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
-    %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
+    %img{:src => '/assets/ajax-loader.gif', :id => 'new_loader', :style => 'display: none;'}
+    %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary'} Save Reminder
     %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
 / This is the edit reminder modal, and we're violating DRY with this
@@ -50,6 +51,8 @@
       = text_area :edit_reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
-    %a{:href => '#', :id => 'delete_reminder_button', :class => 'btn btn-danger delete_btn', :'data_dismiss' => 'modal'}Delete Reminder
-    %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary', :'data-dismiss' => 'modal'} Save Reminder
+    %a{:href => '#', :id => 'delete_reminder_button', :class => 'btn btn-danger delete_btn'}Delete Reminder
+    %img{:src => '/assets/ajax-loader.gif', :class => 'delete_btn', :id => 'delete_loader', :style => 'display: none;'}
+    %img{:src => '/assets/ajax-loader.gif', :id => 'edit_loader', :style => 'display: none;'}
+    %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary'} Save Reminder
     %button{:class => 'btn edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close

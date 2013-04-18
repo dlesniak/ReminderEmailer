@@ -52,6 +52,13 @@ ReminderEmailer::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
+  namespace :api, defaults: { format: 'json' } do
+    # prefixes /api/ to api urls
+    namespace :v1 do
+      resources :reminders
+    end
+  end
+
   root :to => 'home#index'
 
   resources :reminders

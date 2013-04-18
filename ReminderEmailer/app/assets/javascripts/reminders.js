@@ -6,7 +6,7 @@ $(document).ready(function() {
     ignoreTimezone: true,
     eventSources: [
       {
-        url: '/reminders.json',
+        url: '/api/v1/reminders',
         type: 'GET',
         cache: true,
         error: function() {
@@ -18,8 +18,6 @@ $(document).ready(function() {
       alert(date + ' has been clicked!');
     },
     eventClick: function(event, jsEvent, view) {
-      // Modify the action of the form to reflect the clicked events id
-      $('#edit_reminder_form').attr('action', '/reminders/' + event.id + '/')
       // Fill in the form with data from the event
       $('#edit_reminder_title').val(event.title);
       $('#edit_reminder_start').val(event.start);
@@ -33,7 +31,7 @@ $(document).ready(function() {
       var serialized = serializeReminder(deltaApplied);
       // This is essentially a sneaky update, so we send a put message to the server
       $.ajax({
-        url: '/reminders/' + event.id + '/',
+        url: '/api/v1/reminders/' + event.id + '/',
         type: 'PUT',
         data: serialized,
         dataType: 'JSON'
@@ -77,6 +75,7 @@ $(document).ready(function() {
   });
 
   $('#save_reminder_link').on('click', function(e) {
+    $('#new_loader').show();
     // stop the default linking behavior
     e.preventDefault();
     // submit the form
@@ -84,35 +83,46 @@ $(document).ready(function() {
     var form = $('#new_reminder_form');
     var sub_data = form.serialize();
     $.ajax({
-      url: form.attr('action'),
+      url: '/api/v1/reminders/',
       type: 'POST',
       data: sub_data,
       dataType: "JSON"
-    }).success( function(json) {
+    }).success( function() {
       $("#calendar").fullCalendar("refetchEvents");
+      $('#newReminder').modal('hide');
+      $('#new_loader').hide();
     });
   });
 
   // More DRY violations
   $('#edit_reminder_link').on('click', function(e) {
+    $('#edit_loader').show();
     // stop the default linking behavior
     e.preventDefault();
     // submit the form
     var form = $('#edit_reminder_form');
     var sub_data = form.serialize();
     $.ajax({
-      url: form.attr('action'),
+      url: '/api/v1/reminders/' + clicked_event.id + '/',
       type: 'PUT',
       data: sub_data,
       dataType: "JSON"
-    }).success( function(json) {
-      // refresh the data for the event
-      clicked_event.start = json.start;
-      clicked_event.end = json.end;
-      clicked_event.title = json.title;
-      clicked_event.customhtml = json.customhtml;
-      //clicked_event.repeat = sub_data.repeat;
-      $('#calendar').fullCalendar('updateEvent', clicked_event);
+    }).success( function() {
+      // if we succeed do a get request for the new data
+      $.ajax({
+        url: '/api/v1/reminders/' + clicked_event.id + '/',
+        type: 'GET'
+      }).success( function(json) {
+        // refresh the data for the event
+        clicked_event.start = json.start;
+        clicked_event.end = json.end;
+        clicked_event.title = json.title;
+        clicked_event.customhtml = json.customhtml;
+        //clicked_event.repeat = sub_data.repeat;
+        $('#calendar').fullCalendar('updateEvent', clicked_event);
+        $('#editReminder').modal('hide');
+        $('#edit_loader').hide();
+      });
     });
   });
 
@@ -127,14 +137,18 @@ $(document).ready(function() {
       $('#delete_reminder_button').text("Confirm Deletion");
       clicked_event.attemptedDelete = true;
     }else{
+      $('#delete_loader').show();
       $.ajax({
-        url: '/reminders/' + clicked_event.id + '/',
+        url: '/api/v1/reminders/' + clicked_event.id + '/',
         type: 'DELETE'
-      }).success( function(json) {
-        $('#fullcalendar').fullCalendar('removeEvents', json.id);
+      }).success( function() {
+        // the server responds with a 204, so there's no body
+        $('#fullcalendar').fullCalendar('removeEvents', clicked_event.id);
         $('#editReminder').modal('hide');
         clicked_event = null;
         $('#calendar').fullCalendar('refetchEvents');
+        $('#editReminder').modal('hide');
+        $('#delete_loader').hide();
       });
     }
   });
