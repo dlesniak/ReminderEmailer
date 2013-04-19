@@ -1,4 +1,5 @@
 class RemindersController < ApplicationController
+  before_filter :authenticate_user!
 
   def index
     # Essentially do nothing, since the real data is coming from the api

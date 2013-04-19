@@ -59,7 +59,7 @@ ReminderEmailer::Application.routes.draw do
     end
   end
 
-  root :to => 'home#index'
+  root :to => 'reminders#index'
 
   resources :reminders
 
