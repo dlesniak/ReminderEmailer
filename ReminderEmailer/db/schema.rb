@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130418051910) do
+ActiveRecord::Schema.define(:version => 20130421011655) do
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -44,13 +44,11 @@ ActiveRecord::Schema.define(:version => 20130418051910) do
     t.datetime "start"
     t.datetime "end"
     t.integer  "repeat"
-    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "customhtml"
+    t.integer  "api_key_id"
   end
-
-  add_index "reminders", ["user_id"], :name => "index_reminders_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
