@@ -16,9 +16,11 @@ module Api
           # only mailer bots can access this part of the api
           if found
             key = ApiKey.where(:access_token => token).first
-            key.role == 'mailer'
+            if not key.role == 'mailer'
+              respond_with '{"Acces Denied"}', :status => :unauthorized
+            end
           else
-            false
+            respond_with '{"Acces Denied"}', :status => :unauthorized
           end
         end
     end
