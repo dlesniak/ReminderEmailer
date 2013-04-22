@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-reminders = [{:title => "TestEvent", :allDay => false, :start => DateTime.new(2013,4,3,12,0), :end => DateTime.new(2013,4,4,12,0), :repeat => 0, :user_id => 1, :created_at => DateTime.now(), :updated_at => DateTime.now(), :customhtml => ""}
+reminders = [{:title => "TestEvent", :allDay => false, :start => DateTime.new(2013,4,3,12,0), :end => DateTime.new(2013,4,4,12,0), :repeat => 0, :api_key_id => 1, :created_at => DateTime.now(), :updated_at => DateTime.now(), :customhtml => ""}
             ]
 
 reminders.each do |reminder|
@@ -34,3 +34,8 @@ users.each do |user|
   User.create!(user)
 end
   
+api_keys = [{:access_token => 'c576f0136149a2e2d9127b3901015545', :role => 'mailer'}]
+
+api_keys.each do |key|
+  ApiKey.create!(key)
+end

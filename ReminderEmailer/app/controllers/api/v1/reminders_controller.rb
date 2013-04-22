@@ -6,9 +6,13 @@ module Api
 
       def index
         if(params[:start] && params[:end])
-          @reminders = Reminder.in_range(Integer(params[:start]), Integer(params[:end]))
-        else
-          @reminders = Reminder.all
+          if(session[:bot_key])
+            key = session[:bot_key]
+          else
+            key = ApiKey.where(:User_id => current_user.id).first
+          end
+          @reminders = Reminder.in_range(Integer(params[:start]), Integer(params[:end]), key)
+          session.delete(:bot_key)
         end
         respond_with @reminders
       end
@@ -25,7 +29,10 @@ module Api
       end
 
       def create
-        @reminder = Reminder.create!(params[:reminder])
+        key = ApiKey.where(:User_id => current_user.id).first
+        @reminder = Reminder.new(params[:reminder])
+        @reminder.api_key_id = key.id
+        @reminder.save
         respond_with @reminder
       end
 
@@ -41,8 +48,14 @@ module Api
           if user_signed_in?
             true
           else
-            authenticate_or_request_with_http_token do |token, options|
-              ApiKey.exists?(access_token: token)
+            token = request.headers['Authorization']
+            found = ApiKey.exists?(access_token: token)
+            if found
+              # RESTful api's should probably not be using sessions...
+              session[:bot_key] = ApiKey.where(access_token: token).first
+              found
+            else
+              false
             end
           end
         end

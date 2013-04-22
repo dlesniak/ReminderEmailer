@@ -19,16 +19,14 @@ $(document).ready(function() {
     },
     eventClick: function(event, jsEvent, view) {
       // Fill in the form with data from the event
-      $('#edit_reminder_title').val(event.title);
-      $('#edit_reminder_start').val(event.start);
-      $('#edit_reminder_end').val(event.end);
-      $('#edit_reminder_customhtml').val(event.customhtml);
+      fillEditForm(event);
       $('#editReminder').modal('show');
       clicked_event = event;
     },
     eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
       var deltaApplied = applyDeltas(event, dayDelta, minuteDelta);
-      var serialized = serializeReminder(deltaApplied);
+      fillEditForm(deltaApplied);
+      var serialized = $('#edit_reminder_form').serialize();
       // This is essentially a sneaky update, so we send a put message to the server
       $.ajax({
         url: '/api/v1/reminders/' + event.id + '/',
@@ -59,7 +57,6 @@ $(document).ready(function() {
       return transformedData;
     }
   });
-
   $('.date_picker_field').datetimepicker({
     dateFormat: 'D M d yy',
     timeFormat: 'HH:mm:ss z',
@@ -172,4 +169,11 @@ function applyDeltas(reminder, dayDelta, minuteDelta){
   deltaApplied.start.minute = deltaApplied.start.minute + minuteDelta;
   deltaApplied.end.minute = deltaApplied.end.minute + minuteDelta;
   return deltaApplied;
+};
+
+function fillEditForm(event){
+  $('#edit_reminder_title').val(event.title);
+  $('#edit_reminder_start').val(event.start);
+  $('#edit_reminder_end').val(event.end);
+  $('#edit_reminder_customhtml').val(event.customhtml);
 };
