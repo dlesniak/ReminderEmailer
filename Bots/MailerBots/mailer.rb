@@ -8,8 +8,7 @@ Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |http|
   unixEnd = (Time.now)
   request = Net::HTTP::Get.new('/api/v1/reminders?start=' + (unixStart.to_i.to_s) + '&end=' + (unixEnd.to_i.to_s))
   # set the authorization header in the request
-  # request['Authorization'] = 'Token token="6d293182cebb697d81c3ecc6dec72b8c"'
-  request['Authorization'] = '6d293182cebb697d81c3ecc6dec72b8c'
+  request['Authorization'] = 'edb8ba0599a76b67e8769eb1e7b4b4d7'
 
   response = http.request request # Net::HTTPResponse object
 

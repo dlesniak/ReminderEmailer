@@ -6,8 +6,8 @@ module Api
 
       def index
         if(params[:start] && params[:end])
-          if(session[:bot_key])
-            key = session[:bot_key]
+          if(@bot_key)
+           key = @bot_key
           else
             key = ApiKey.where(:User_id => current_user.id).first
           end
@@ -52,7 +52,7 @@ module Api
             found = ApiKey.exists?(access_token: token)
             if found
               # RESTful api's should probably not be using sessions...
-              session[:bot_key] = ApiKey.where(access_token: token).first
+              @bot_key = ApiKey.where(access_token: token).first
               found
             else
               false

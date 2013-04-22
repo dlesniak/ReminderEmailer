@@ -65,6 +65,8 @@ ReminderEmailer::Application.routes.draw do
 
   resources :groups
 
+  resources :api_keys
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
