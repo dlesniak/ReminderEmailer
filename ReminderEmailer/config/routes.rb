@@ -55,7 +55,7 @@ ReminderEmailer::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     # prefixes /api/ to api urls
     namespace :v1 do
-      resources :reminders
+      resources :reminders, :users
     end
   end
 
@@ -65,7 +65,7 @@ ReminderEmailer::Application.routes.draw do
 
   resources :groups
 
-  resources :api_keys
+  resources :api_keys, :only => [:index, :new]
 
   # See how all your routes lay out with "rake routes"
 
