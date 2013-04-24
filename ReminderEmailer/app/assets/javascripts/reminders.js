@@ -8,7 +8,7 @@ $(document).ready(function() {
       {
         url: '/api/v1/reminders',
         type: 'GET',
-        cache: true,
+        //cache: true,
         error: function() {
           alert("There was an error loading events!");
         }

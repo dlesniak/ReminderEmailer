@@ -2,6 +2,11 @@ class Reminder < ActiveRecord::Base
   has_one :api_key
   belongs_to :group
 
+  def self.find_upcoming(now, key)
+    range_date = now + 10.days
+    @reminders = in_range(now, range_date, key) + find_repeating_reminders(now, range_date, key)
+  end
+
   def self.in_range(start_datetime, end_datetime, key)
     # handles the reminders happening right now
     start_datetime = Time.at(start_datetime).to_datetime
@@ -30,16 +35,28 @@ class Reminder < ActiveRecord::Base
     repeating_reminders.each do |repeater|
       start_end_diff = repeater.end.yday - repeater.start.yday
       rem_start = repeater.start
-      day_diff = end_datetime.yday - rem_start.yday
-      last_rep = rem_start + (((day_diff / repeater.repeat).round() * repeater.repeat) + rem_start.yday).days
-      while last_rep > start_datetime && last_rep > repeater.start
-        repeated_reminder = repeater.dup
-        repeated_reminder.id = repeater.id
-        repeated_reminder.start = last_rep
-        repeated_reminder.end = repeater.end + (last_rep.yday - repeater.start.yday).days
-        #repeated_reminder.end.change({:hour => repeater.end.hour, :min => repeater.end.min, :sec => repeater.end.sec})
-        @reminders << repeated_reminder
-        last_rep -= repeater.repeat.days
+      day_diff = start_datetime.yday - repeater.start.yday
+      if day_diff > 0
+        vis_rem = repeater.start + (((day_diff / repeater.repeat).floor() * repeater.repeat) + rem_start.yday).days
+        while vis_rem < end_datetime
+          repeated_reminder = repeater.dup
+          repeated_reminder.id = repeater.id
+          repeated_reminder.start = vis_rem
+          repeated_reminder.end = repeater.end + (vis_rem.yday - repeater.start.yday).days
+          #repeated_reminder.end.change({:hour => repeater.end.hour, :min => repeater.end.min, :sec => repeater.end.sec})
+          @reminders << repeated_reminder
+          vis_rem += repeater.repeat.days
+        end
+      else
+        curr_rep = repeater.start + repeater.repeat.days
+        while curr_rep < end_datetime
+          repeated_reminder = repeater.dup
+          repeated_reminder.id = repeater.id
+          repeated_reminder.start = curr_rep
+          repeated_reminder.end = repeater.end + repeater.repeat.days
+          @reminders << repeated_reminder
+          curr_rep += repeater.repeat.days
+        end
       end
     end
     @reminders

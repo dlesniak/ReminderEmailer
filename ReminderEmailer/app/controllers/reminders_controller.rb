@@ -2,7 +2,8 @@ class RemindersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    # Essentially do nothing, since the real data is coming from the api
+    key = ApiKey.where(:User_id => current_user.id).first
+    @upcoming_reminders = Reminder.find_upcoming(Time.now(), key)
   end
 
   def update
