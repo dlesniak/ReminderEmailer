@@ -63,7 +63,12 @@ ReminderEmailer::Application.routes.draw do
 
   resources :reminders
 
-  resources :groups
+  resources :groups do
+    member do
+      post 'join'
+      delete 'delete_user_from'
+    end
+  end
 
   resources :api_keys, :only => [:index, :new]
 
