@@ -1,0 +1,4 @@
+class AddAdminToGroupsUsers < ActiveRecord::Migration
+  def change
+  end
+end

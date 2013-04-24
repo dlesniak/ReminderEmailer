@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
   def show
     id = params[:id]
     @group = Group.find(id)
-    @group_users = @group.users
+    @group_users = @group.groups_user.users
   end
 
   def new
@@ -45,10 +45,11 @@ class GroupsController < ApplicationController
   end
 
   def delete_user_from
-    @group = Group.find(params[:id])
-    @user = User.find(params[:user_id])
-    @group_users = @group.users
-    redirect_to edit_group_path(@group)
+    group = Group.find(params[:id])
+    user = User.find(params[:user_id])
+    group.users >> user
+
+    redirect_to edit_group_path(group)
   end
 
 end
