@@ -12,9 +12,10 @@ module Api
             key = ApiKey.where(:User_id => current_user.id).first
           end
           @reminders = Reminder.in_range(Integer(params[:start]), Integer(params[:end]), key)
+          @repeaters = Reminder.find_repeating_reminders(Integer(params[:start]), Integer(params[:end]), key)
           session.delete(:bot_key)
         end
-        respond_with @reminders
+        respond_with (@reminders + @repeaters)
       end
 
       def show

@@ -3,6 +3,7 @@ class Reminder < ActiveRecord::Base
   belongs_to :group
 
   def self.in_range(start_datetime, end_datetime, key)
+    # handles the reminders happening right now
     start_datetime = Time.at(start_datetime).to_datetime
     end_datetime = Time.at(end_datetime).to_datetime
     # This could probably be optimized to one query...
@@ -15,5 +16,32 @@ class Reminder < ActiveRecord::Base
       end_reminders = end_reminders.where(:api_key_id => key.id)
     end
     @reminders = (start_reminders + end_reminders).uniq
+  end
+
+  def self.find_repeating_reminders(start_datetime, end_datetime, key)
+    start_datetime = Time.at(start_datetime).to_datetime
+    end_datetime = Time.at(end_datetime).to_datetime
+    @reminders = []
+     # collects the reminders which repeat
+    repeating_reminders = Reminder.where('repeat > 0')
+    if key.role == 'User'
+      repeating_reminders = repeating_reminders.where(:api_key_id => key.id)
+    end
+    repeating_reminders.each do |repeater|
+      start_end_diff = repeater.end.yday - repeater.start.yday
+      rem_start = repeater.start
+      day_diff = end_datetime.yday - rem_start.yday
+      last_rep = rem_start + (((day_diff / repeater.repeat).round() * repeater.repeat) + rem_start.yday).days
+      while last_rep > start_datetime && last_rep > repeater.start
+        repeated_reminder = repeater.dup
+        repeated_reminder.id = repeater.id
+        repeated_reminder.start = last_rep
+        repeated_reminder.end = repeater.end + (last_rep.yday - repeater.start.yday).days
+        #repeated_reminder.end.change({:hour => repeater.end.hour, :min => repeater.end.min, :sec => repeater.end.sec})
+        @reminders << repeated_reminder
+        last_rep -= repeater.repeat.days
+      end
+    end
+    @reminders
   end
 end

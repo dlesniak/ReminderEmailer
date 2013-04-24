@@ -48,6 +48,7 @@ $(document).ready(function() {
       transformedData['id'] = eventData.id;
       transformedData['title'] = eventData.title;
       transformedData['allDay'] = eventData.allDay;
+      transformedData['repeat'] = eventData.repeat;
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
@@ -113,10 +114,14 @@ $(document).ready(function() {
         // refresh the data for the event
         clicked_event.start = json.start;
         clicked_event.end = json.end;
+        clicked_event.repeat = json.repeat;
         clicked_event.title = json.title;
         clicked_event.customhtml = json.customhtml;
         //clicked_event.repeat = sub_data.repeat;
         $('#calendar').fullCalendar('updateEvent', clicked_event);
+        if(json.repeat > 0){
+          $('#calendar').fullCalendar('refetchEvents');
+        }
         $('#editReminder').modal('hide');
         $('#edit_loader').hide();
       });
@@ -151,16 +156,6 @@ $(document).ready(function() {
   });
 });
 
-function serializeReminder(reminder){
-  var data = {
-    'edit_reminder[title]': reminder.title,
-    'edit_reminder[start]': reminder.start,
-    'edit_reminder[end]': reminder.end,
-    'edit_reminder[customhtml]': reminder.customhtml
-  }
-  return data;
-};
-
 function applyDeltas(reminder, dayDelta, minuteDelta){
   var deltaApplied = reminder;
   deltaApplied.start.day = deltaApplied.start.day + dayDelta;
@@ -175,5 +170,6 @@ function fillEditForm(event){
   $('#edit_reminder_title').val(event.title);
   $('#edit_reminder_start').val(event.start);
   $('#edit_reminder_end').val(event.end);
+  $('#edit_reminder_repeat').val(event.repeat);
   $('#edit_reminder_customhtml').val(event.customhtml);
 };

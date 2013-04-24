@@ -20,6 +20,9 @@
       = label :reminder, :end, 'End Date and Time'
       = text_field :reminder, :end, :class => 'date_picker_field'
 
+      = label :reminder, :repeat, 'Repeat Interval'
+      = text_field :reminder, :repeat
+
       = label :reminder, :customhtml, 'Custom Email HTML'
       = text_area :reminder, :customhtml, :rows => 5
       
@@ -46,6 +49,7 @@
       = text_field :edit_reminder, :end, :class => 'date_picker_field'
 
       = label :edit_reminder, :repeat, 'Repeat Interval'
+      = text_field :edit_reminder, :repeat
 
       = label :edit_reminder, :customhtml, 'Custom Email HTML'
       = text_area :edit_reminder, :customhtml, :rows => 5
