@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
 
   def show
     id = params[:id]
+    @user = current_user
     @group = Group.find(id)
     @group_users = @group.users
   end
@@ -48,8 +49,13 @@ class GroupsController < ApplicationController
     group = Group.find(params[:id])
     user = User.find(params[:user_id])
     group.users.delete(user)
+    page_number = params[:page]
 
-    redirect_to edit_group_path(group)
+    if page_number.to_i == 0
+      redirect_to group_path(group)
+    elsif page_number.to_i == 1
+      redirect_to edit_group_path(group)
+    end
   end
 
   def add_admin

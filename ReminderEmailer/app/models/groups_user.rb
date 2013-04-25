@@ -13,4 +13,12 @@ class GroupsUser < ActiveRecord::Base
     end
   end
 
+  def self.inGroup?(group, user)
+    entry = where("group_id = ? AND user_id = ?", group, user).first
+    if entry 
+      return false
+    else 
+      return true
+    end
+  end
 end
