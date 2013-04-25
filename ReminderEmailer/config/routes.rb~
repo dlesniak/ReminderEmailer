@@ -52,9 +52,25 @@ ReminderEmailer::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  namespace :api, defaults: { format: 'json' } do
+    # prefixes /api/ to api urls
+    namespace :v1 do
+      resources :reminders, :users
+    end
+  end
+
+  root :to => 'reminders#index'
 
   resources :reminders
+
+  resources :groups do
+    member do
+      post 'join'
+      delete 'delete_user_from'
+    end
+  end
+
+  resources :api_keys, :only => [:index, :new]
 
   # See how all your routes lay out with "rake routes"
 

@@ -1,0 +1,4 @@
+class AddPrimaryKeyToGroupsUsers < ActiveRecord::Migration
+  def change
+  end
+end

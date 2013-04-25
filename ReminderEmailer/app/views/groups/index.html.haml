@@ -8,8 +8,9 @@
       %th Visit Group Page 
   %tbody
     - @groups.each do |group|
-      %tr
-        %td= group.name 
-        %td= link_to "More about #{group.name}", group_path(group)
+      - if !group.private
+        %tr
+          %td= group.name 
+          %td= link_to "More about #{group.name}", group_path(group)
 
 = link_to 'Create New Group', new_group_path, {:class => 'btn btn-primary'}
