@@ -47,9 +47,31 @@ class GroupsController < ApplicationController
   def delete_user_from
     group = Group.find(params[:id])
     user = User.find(params[:user_id])
-    group.users >> user
+    group.users.delete(user)
 
     redirect_to edit_group_path(group)
+  end
+
+  def add_admin
+    @group = Group.find(params[:id])
+    @group.groups_users.each do |entry|
+      if entry.user_id == params[:user_id].to_i
+        entry.admin = true
+        entry.save
+      end
+    end
+    redirect_to edit_group_path(@group)
+  end
+
+  def remove_admin
+    @group = Group.find(params[:id])
+    @group.groups_users.each do |entry|
+      if entry.user_id == params[:user_id].to_i
+        entry.admin = false
+        entry.save
+      end
+    end
+    redirect_to edit_group_path(@group)
   end
 
 end

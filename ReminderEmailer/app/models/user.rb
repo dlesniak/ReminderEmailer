@@ -16,4 +16,5 @@ class User < ActiveRecord::Base
   def generate_api_key
     ApiKey.create!(:role => 'User', :User_id => self.id)
   end
+
 end

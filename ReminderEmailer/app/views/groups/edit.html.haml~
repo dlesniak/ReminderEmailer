@@ -7,11 +7,17 @@
     %tr
       %th Member Name
       %th Remove Member 
+      %th Modify Admin
   %tbody
     - @group_users.each do |group_user|
       %tr
         %td= group_user.email 
-        %td= button_to "Remove #{group_user.email}", delete_user_from_group_path(group_user), :method => :delete
+        %td= button_to "Remove #{group_user.email}", delete_user_from_group_path(@group, :user_id => group_user), :method => :delete
+        - if !GroupsUser.isAdmin?(@group, group_user)
+          %td= button_to "Make Admin", add_admin_group_path(@group, :user_id => group_user)
+        - else #GroupsUser.isAdmin?(@group, group_user)
+          %td= button_to "Remove Admin", remove_admin_group_path(@group, :user_id => group_user)
+          
 
 = form_tag group_path(@group), :method => :put do
 

@@ -18,7 +18,7 @@
     =@group.description
   %div
     = link_to 'Edit Members', edit_group_path(@group)
-    = button_to 'Join Group', join_group_path(@group), :method => :put
+    = button_to 'Join Group', join_group_path(@group)
     = button_to 'Delete', group_path(@group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
 
 %div
