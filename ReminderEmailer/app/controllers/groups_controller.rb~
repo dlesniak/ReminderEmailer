@@ -55,6 +55,7 @@ class GroupsController < ApplicationController
       redirect_to group_path(group)
     elsif page_number.to_i == 1
       redirect_to edit_group_path(group)
+    end
   end
 
   def add_admin
@@ -77,6 +78,12 @@ class GroupsController < ApplicationController
       end
     end
     redirect_to edit_group_path(@group)
+  end
+
+  def modify_public_private
+    @group = Group.find(params[:id])
+    @group.private = !@group.private
+    redirect_to group_path(@group)
   end
 
 end

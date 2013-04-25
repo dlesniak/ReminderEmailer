@@ -80,4 +80,11 @@ class GroupsController < ApplicationController
     redirect_to edit_group_path(@group)
   end
 
+  def modify_public_private
+    @group = Group.find(params[:id])
+    @group.private = !@group.private
+    @group.save
+    redirect_to group_path(@group)
+  end
+
 end

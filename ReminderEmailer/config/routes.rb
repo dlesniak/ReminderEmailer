@@ -69,6 +69,7 @@ ReminderEmailer::Application.routes.draw do
       delete 'delete_user_from'
       post 'add_admin'
       post 'remove_admin'
+      post 'modify_public_private'
     end
   end
 
