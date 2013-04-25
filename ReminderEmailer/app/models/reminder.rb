@@ -2,11 +2,6 @@ class Reminder < ActiveRecord::Base
   has_one :api_key
   belongs_to :group
 
-  def self.find_upcoming(now, key)
-    range_date = now + 10.days
-    @reminders = in_range(now, range_date, key) + find_repeating_reminders(now, range_date, key)
-  end
-
   def self.in_range(start_datetime, end_datetime, key)
     # handles the reminders happening right now
     start_datetime = Time.at(start_datetime).to_datetime

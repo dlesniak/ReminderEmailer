@@ -1,5 +1,6 @@
 require 'uri'
 require 'net/http'
+require 'json'
 
 uri = URI('http://localhost:3000')
 
@@ -15,4 +16,7 @@ Net::HTTP.start('localhost', 3000) do |http|
   response = http.request request # Net::HTTPResponse object
 
   puts response.body
+
+  data = JSON.parse response.body
+  puts data
 end

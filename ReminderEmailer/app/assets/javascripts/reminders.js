@@ -197,7 +197,7 @@ function fetchUpcoming() {
     type: 'GET'
   }).success( function(json) {
     for(var i = 0; i < json.length; i++){
-      $('<tr><td>' + json[i].title + '</td><td>' + json[i].start + '</td></tr>').insertAfter('#upcomingTable');
+      $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + json[i].start + '</td></tr>');
     }
   });
 }
