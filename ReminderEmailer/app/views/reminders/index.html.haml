@@ -6,14 +6,10 @@
         %h4 Upcoming Reminders
         %table{:class => 'table'}
           %thead
-            %th
-              %td Title
-              %td Date and Time
-          %tbody
             %tr
-              - @upcoming_reminders.each do |rem|
-                %td= rem.title
-                %td= rem.start
+              %th Title
+              %th Date and Time
+          %tbody{:id => 'upcomingTable'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
 
 / This is the new reminder modal

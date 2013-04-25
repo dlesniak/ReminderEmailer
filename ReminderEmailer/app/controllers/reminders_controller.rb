@@ -2,8 +2,7 @@ class RemindersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    key = ApiKey.where(:User_id => current_user.id).first
-    @upcoming_reminders = Reminder.find_upcoming(Time.now(), key)
+    # do nothing
   end
 
   def update

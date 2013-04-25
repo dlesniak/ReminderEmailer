@@ -33,10 +33,17 @@ $(document).ready(function() {
         type: 'PUT',
         data: serialized,
         dataType: 'JSON'
-      }).success( function(json) {
-        event.start = json.start;
-        event.end = json.end;
-        $('#calendar').fullCalendar('updateEvent', event);
+      }).success( function() {
+      // if we succeed do a get request for the new data
+        $.ajax({
+          url: '/api/v1/reminders/' + event.id + '/',
+          type: 'GET'
+        }).success( function(json) {
+          event.start = json.start;
+          event.end = json.end;
+          $('#calendar').fullCalendar('updateEvent', event);
+          fetchUpcoming();
+        });
       });
     },
     loading: function(isLoading, view) {
@@ -89,6 +96,7 @@ $(document).ready(function() {
       $("#calendar").fullCalendar("refetchEvents");
       $('#newReminder').modal('hide');
       $('#new_loader').hide();
+      fetchUpcoming();
     });
   });
 
@@ -124,6 +132,7 @@ $(document).ready(function() {
         }
         $('#editReminder').modal('hide');
         $('#edit_loader').hide();
+        fetchUpcoming();
       });
     });
   });
@@ -151,9 +160,12 @@ $(document).ready(function() {
         $('#calendar').fullCalendar('refetchEvents');
         $('#editReminder').modal('hide');
         $('#delete_loader').hide();
+        fetchUpcoming();
       });
     }
   });
+
+  fetchUpcoming();
 });
 
 function applyDeltas(reminder, dayDelta, minuteDelta){
@@ -173,3 +185,19 @@ function fillEditForm(event){
   $('#edit_reminder_repeat').val(event.repeat);
   $('#edit_reminder_customhtml').val(event.customhtml);
 };
+
+function fetchUpcoming() {
+  // remove all the old table rows, since we're refetching
+  $('#upcomingTable').find('tr').remove();
+  var now = new Date();
+  var now = now.getTime() / 1000; // this gives us the current seconds since the epoch
+  var future = now + 864000; // 60 sec/min * 60 min/hour * 24 hour/day * 10 days = 864000 seconds
+  $.ajax({
+    url: '/api/v1/reminders?start=' + Math.floor(now) + '&end=' + Math.floor(future),
+    type: 'GET'
+  }).success( function(json) {
+    for(var i = 0; i < json.length; i++){
+      $('<tr><td>' + json[i].title + '</td><td>' + json[i].start + '</td></tr>').insertAfter('#upcomingTable');
+    }
+  });
+}

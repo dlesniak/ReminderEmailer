@@ -1,0 +1,2 @@
+account: reminderemailer@gmail.com
+password: reminderemailer23
