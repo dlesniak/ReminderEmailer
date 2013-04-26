@@ -14,9 +14,9 @@
         %td= group_user.email 
         %td= button_to "Remove #{group_user.email}", delete_user_from_group_path(@group, :user_id => group_user, :page => 1), :method => :delete
         - if !GroupsUser.isAdmin?(@group, group_user)
-          %td= button_to "Make Admin", add_admin_group_path(@group, :user_id => group_user)
+          %td= button_to "Make Admin",  add_admin_group_path(@group, :user_id => group_user), :id => group_user.email+"id"
         - if GroupsUser.isAdmin?(@group, group_user)
-          %td= button_to "Remove Admin", remove_admin_group_path(@group, :user_id => group_user)
+          %td= button_to "Remove Admin", remove_admin_group_path(@group, :user_id => group_user), :id => group_user.email+"id"
           
 
 = form_tag group_path(@group), :method => :put do
