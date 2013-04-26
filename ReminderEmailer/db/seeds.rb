@@ -13,22 +13,24 @@ reminders.each do |reminder|
   Reminder.create!(reminder)
 end
 
-groups = [{:name => "Intramural Basketball Team", :description => "Group for members of the local intramural basketball team."}, 
-          {:name => "Spelunking Club",            :description => "We love exploring caves. If you do too, feel free to join!"},
-          {:name => "SELT Group",                 :description => "Making SaaS apps with the MAGIC of Ruby and Rails!"}]
+groups = [{:name => "Intramural Basketball Team", :description => "Group for members of the local intramural basketball team.", :private => false}, 
+          {:name => "Spelunking Club",            :description => "We love exploring caves. If you do too, feel free to join!", :private => false},
+          {:name => "SELT Group",                 :description => "Making SaaS apps with the MAGIC of Ruby and Rails!", :private => false}]
 
 groups.each do |group|
   Group.create!(group)
 end
 
-#groups_users = [{:group_id => 0, :user_id => 0}, {:group_id => 2, :user_id => 0},
-#                {:group_id => 1, :user_id => 1}, {:group_id =>20, :user_id => 1}]
+groups_users = [{:group_id => 1, :user_id => 1, :admin => true}, {:group_id => 3, :user_id => 1, :admin => true},
+                {:group_id => 2, :user_id => 2, :admin => true}, {:group_id => 3, :user_id => 2, :admin => false}]
 
-#groups_users.each do |group_user|
+groups_users.each do |group_user|
+  GroupsUser.create!(group_user)
+end
   
 
-users = [{:email => "steve@fakeemail.com", :password => "password", :groups => Group.where("name in ('Intramural Basketball Team', 'SELT Group')")},
-         {:email => "joe@fakeemail.com",   :password => "password",   :groups => Group.where("name in ('Spelunking Club', 'SELT Group')")}]
+users = [{:email => "steve@fakeemail.com", :password => "password"},# :groups => Group.where("name in ('Intramural Basketball Team', 'SELT Group')")},
+         {:email => "joe@fakeemail.com",   :password => "password"}]#,   :groups => Group.where("name in ('Spelunking Club', 'SELT Group')")}]
 
 users.each do |user|
   User.create!(user)

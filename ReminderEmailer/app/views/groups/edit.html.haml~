@@ -1,0 +1,30 @@
+-# edit.html.haml using partial
+
+%h1 Edit #{@group.name}
+
+%table{:id => 'group_users', :class => 'table'}
+  %thead
+    %tr
+      %th Member Name
+      %th Remove Member 
+      %th Modify Admin
+  %tbody
+    - @group_users.each do |group_user|
+      %tr
+        %td= group_user.email 
+        %td= button_to "Remove #{group_user.email}", delete_user_from_group_path(@group, :user_id => group_user), :method => :delete
+        - if !GroupsUser.isAdmin?(@group, group_user)
+          %td= button_to "Make Admin", add_admin_group_path(@group, :user_id => group_user)
+        - if GroupsUser.isAdmin?(@group, group_user)
+          %td= button_to "Remove Admin", remove_admin_group_path(@group, :user_id => group_user)
+          
+
+= form_tag group_path(@group), :method => :put do
+
+  = label :group, :name, 'Group Name'
+  = text_field :group, 'name'
+
+  = label :group, :description, 'Description'
+  = text_field :group, 'description'
+
+  = submit_tag 'Update Group Info'

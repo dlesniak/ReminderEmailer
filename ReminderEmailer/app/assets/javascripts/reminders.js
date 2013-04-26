@@ -14,9 +14,6 @@ $(document).ready(function() {
         }
       }
     ],
-    dayClick: function(date, allDay, jsEvent, view) {
-      alert(date + ' has been clicked!');
-    },
     eventClick: function(event, jsEvent, view) {
       // Fill in the form with data from the event
       fillEditForm(event);
@@ -32,18 +29,23 @@ $(document).ready(function() {
         url: '/api/v1/reminders/' + event.id + '/',
         type: 'PUT',
         data: serialized,
-        dataType: 'JSON'
-      }).success( function() {
+        dataType: 'JSON',
+        success: function() {
       // if we succeed do a get request for the new data
-        $.ajax({
-          url: '/api/v1/reminders/' + event.id + '/',
-          type: 'GET'
-        }).success( function(json) {
-          event.start = json.start;
-          event.end = json.end;
-          $('#calendar').fullCalendar('updateEvent', event);
-          fetchUpcoming();
-        });
+          $.ajax({
+            url: '/api/v1/reminders/' + event.id + '/',
+            type: 'GET',
+            success: function(json) {
+              event.start = json.start;
+              event.end = json.end;
+              $('#calendar').fullCalendar('updateEvent', event);
+              if(event.repeat > 0){
+                $('#calendar').fullCalendar('refetchEvents');
+              }
+              fetchUpcoming();
+            }
+          });
+        }
       });
     },
     loading: function(isLoading, view) {
@@ -91,12 +93,13 @@ $(document).ready(function() {
       url: '/api/v1/reminders/',
       type: 'POST',
       data: sub_data,
-      dataType: "JSON"
-    }).success( function() {
-      $("#calendar").fullCalendar("refetchEvents");
-      $('#newReminder').modal('hide');
-      $('#new_loader').hide();
-      fetchUpcoming();
+      dataType: "JSON",
+      success: function() {
+        $("#calendar").fullCalendar("refetchEvents");
+        $('#newReminder').modal('hide');
+        $('#new_loader').hide();
+        fetchUpcoming();
+      }
     });
   });
 
@@ -112,28 +115,30 @@ $(document).ready(function() {
       url: '/api/v1/reminders/' + clicked_event.id + '/',
       type: 'PUT',
       data: sub_data,
-      dataType: "JSON"
-    }).success( function() {
-      // if we succeed do a get request for the new data
-      $.ajax({
-        url: '/api/v1/reminders/' + clicked_event.id + '/',
-        type: 'GET'
-      }).success( function(json) {
-        // refresh the data for the event
-        clicked_event.start = json.start;
-        clicked_event.end = json.end;
-        clicked_event.repeat = json.repeat;
-        clicked_event.title = json.title;
-        clicked_event.customhtml = json.customhtml;
-        //clicked_event.repeat = sub_data.repeat;
-        $('#calendar').fullCalendar('updateEvent', clicked_event);
-        if(json.repeat > 0){
-          $('#calendar').fullCalendar('refetchEvents');
-        }
-        $('#editReminder').modal('hide');
-        $('#edit_loader').hide();
-        fetchUpcoming();
-      });
+      dataType: "JSON",
+      success: function() {
+        // if we succeed do a get request for the new data
+        $.ajax({
+          url: '/api/v1/reminders/' + clicked_event.id + '/',
+          type: 'GET',
+          success: function(json) {
+            // refresh the data for the event
+            clicked_event.start = json.start;
+            clicked_event.end = json.end;
+            clicked_event.repeat = json.repeat;
+            clicked_event.title = json.title;
+            clicked_event.customhtml = json.customhtml;
+            //clicked_event.repeat = sub_data.repeat;
+            $('#calendar').fullCalendar('updateEvent', clicked_event);
+            if(json.repeat > 0){
+              $('#calendar').fullCalendar('refetchEvents');
+            }
+            $('#editReminder').modal('hide');
+            $('#edit_loader').hide();
+            fetchUpcoming();
+          }
+        });
+      }
     });
   });
 
@@ -149,18 +154,22 @@ $(document).ready(function() {
       clicked_event.attemptedDelete = true;
     }else{
       $('#delete_loader').show();
+      silly_data = $('#edit_reminder_form').serialize();
       $.ajax({
         url: '/api/v1/reminders/' + clicked_event.id + '/',
-        type: 'DELETE'
-      }).success( function() {
-        // the server responds with a 204, so there's no body
-        $('#fullcalendar').fullCalendar('removeEvents', clicked_event.id);
-        $('#editReminder').modal('hide');
-        clicked_event = null;
-        $('#calendar').fullCalendar('refetchEvents');
-        $('#editReminder').modal('hide');
-        $('#delete_loader').hide();
-        fetchUpcoming();
+        type: 'DELETE',
+        data: silly_data,
+        dataType: 'JSON',
+        success: function() {
+          // the server responds with a 204, so there's no body
+          $('#fullcalendar').fullCalendar('removeEvents', clicked_event.id);
+          $('#editReminder').modal('hide');
+          clicked_event = null;
+          $('#calendar').fullCalendar('refetchEvents');
+          $('#editReminder').modal('hide');
+          $('#delete_loader').hide();
+          fetchUpcoming();
+        }
       });
     }
   });
@@ -181,7 +190,6 @@ function applyDeltas(reminder, dayDelta, minuteDelta){
 function fillEditForm(event){
   $('#edit_reminder_title').val(event.title);
   $('#edit_reminder_start').val(event.start);
-  $('#edit_reminder_end').val(event.end);
   $('#edit_reminder_repeat').val(event.repeat);
   $('#edit_reminder_customhtml').val(event.customhtml);
 };
@@ -189,15 +197,18 @@ function fillEditForm(event){
 function fetchUpcoming() {
   // remove all the old table rows, since we're refetching
   $('#upcomingTable').find('tr').remove();
+  $('#upcoming_loader').show();
   var now = new Date();
   var now = now.getTime() / 1000; // this gives us the current seconds since the epoch
-  var future = now + 864000; // 60 sec/min * 60 min/hour * 24 hour/day * 10 days = 864000 seconds
+  var future = now + 432000; // 60 sec/min * 60 min/hour * 24 hour/day * 5 days = 432,000 seconds
   $.ajax({
     url: '/api/v1/reminders?start=' + Math.floor(now) + '&end=' + Math.floor(future),
-    type: 'GET'
-  }).success( function(json) {
-    for(var i = 0; i < json.length; i++){
-      $('<tr><td>' + json[i].title + '</td><td>' + json[i].start + '</td></tr>').insertAfter('#upcomingTable');
+    type: 'GET',
+    success: function(json) {
+      $('#upcoming_loader').hide();
+      for(var i = 0; i < json.length; i++){
+        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
+      }
     }
   });
 }

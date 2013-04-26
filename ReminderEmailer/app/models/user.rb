@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   after_create :generate_api_key
 
-  has_and_belongs_to_many :groups
+  has_many :groups_users
+  has_many :groups, :through => :groups_users
   has_one :api_key
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -15,4 +16,5 @@ class User < ActiveRecord::Base
   def generate_api_key
     ApiKey.create!(:role => 'User', :User_id => self.id)
   end
+
 end
