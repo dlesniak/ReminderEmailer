@@ -15,6 +15,8 @@ module Api
           @repeaters = Reminder.find_repeating_reminders(Integer(params[:start]), Integer(params[:end]), key)
           session.delete(:bot_key)
         end
+        @reminders ||= []
+        @repeaters ||= []
         respond_with (@reminders + @repeaters)
       end
 
