@@ -35,7 +35,7 @@ Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |http|
     key_id = reminder['api_key_id']
     Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |user_http|
       user_request = Net::HTTP::Get.new('/api/v1/users/key/' + key_id.to_s + '/')
-      user_request['Authorization'] = '441494c88d94b976ef7a25db7982c159'
+      user_request['Authorization'] = 'edb8ba0599a76b67e8769eb1e7b4b4d7'
 
       user_response = user_http.request user_request
 
