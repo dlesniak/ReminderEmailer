@@ -2,6 +2,7 @@ Feature: view the "More about" page for a group
 
 Scenario:  Click on the "More about " link for a group to view additional info
 
+Given I have created a user with the email "bob@fakeemail.com" and password "password" and I am logged in
 Given I have added a group with name "Engineering Club" and description "A club for engineers."
 
 When I have visited the Details about "Engineering Club" page

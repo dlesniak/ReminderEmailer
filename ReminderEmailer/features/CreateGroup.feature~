@@ -1,7 +1,8 @@
 Feature: Allow users to create groups
 
-  As a: user
-  so that I can have reminder functionality for groups
-  I want to be able to create groups
-
-Background: I am on the groups index page
+Scenario: Create a new group
+  Given I have created a user with the email "bob@fakeemail.com" and password "password" 
+  And I am logged in
+  When I have created a group with the name "Engineering Club" and description "A club for engineers."
+  And I am on the groups page
+  Then I should see a group entry with the name "Engineering Club"

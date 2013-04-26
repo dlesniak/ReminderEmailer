@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
   end
 
   def new
+    @user_id = current_user
     # default: render 'new' template
   end
 
