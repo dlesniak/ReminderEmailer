@@ -1,6 +1,7 @@
 class Reminder < ActiveRecord::Base
   has_one :api_key
   belongs_to :group
+  after_create :sanitize
 
   def self.in_range(start_datetime, end_datetime, key)
     # handles the reminders happening right now
@@ -57,4 +58,12 @@ class Reminder < ActiveRecord::Base
     end
     @reminders
   end
+
+  private
+    def sanitize
+      if self.repeat.nil?
+        self.repeat = 0
+        self.save
+      end
+    end
 end

@@ -10,7 +10,10 @@
               %th Title
               %th Date and Time
           %tbody{:id => 'upcomingTable'}
-        %img{:src => '/assets/ajax-loader.gif', :id => 'upcoming_loader', :class => 'save_loader_img', :style => 'display: none;'}
+            %tr
+              %td Loading...
+              %td 
+                %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
 
 / This is the new reminder modal
@@ -59,7 +62,7 @@
       = text_area :edit_reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
-    %a{:href => '#', :id => 'delete_reminder_button', :class => 'btn btn-danger delete_btn'}Delete Reminder
+    %a{:href => '#', :id => 'delete_reminder_button', :class => 'btn btn-warning delete_btn'}Delete Reminder
     %img{:src => '/assets/ajax-loader.gif', :class => 'delete_loader_img', :id => 'delete_loader', :style => 'display: none;'}
     %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img', :id => 'edit_loader', :style => 'display: none;'}
     %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary'} Save Reminder

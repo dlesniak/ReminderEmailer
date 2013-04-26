@@ -61,8 +61,8 @@ $(document).ready(function() {
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
-      transformedData['color'] = '#049CDB';
-      transformedData['textColor'] = '#000000';
+      transformedData['backgroundColor'] = 'rgb(04, 9C, DB)';
+      transformedData['textColor'] = 'rgb(00, 00, 00)';
       transformedData['attemptedDelete'] = false;
       return transformedData;
     }
@@ -144,12 +144,23 @@ $(document).ready(function() {
 
   $('.edit_close').on('click', function(e) {
     clicked_event.attemptedDelete = false;
+    $('#delete_reminder_button').attr('class', 'btn btn-warning delete_btn');
     $('#delete_reminder_button').text("Delete Reminder");
     clicked_event = null;
   });
 
+  $('#editReminder').on('hidden', function() {
+    if(clicked_event != null){
+      clicked_event.attemptedDelete = false;
+      $('#delete_reminder_button').attr('class', 'btn btn-warning delete_btn');
+      $('#delete_reminder_button').text("Delete Reminder");
+      clicked_event = null;
+    }
+  });
+
   $('#delete_reminder_button').on('click', function(e) {
     if(!clicked_event.attemptedDelete){
+      $('#delete_reminder_button').attr('class', 'btn btn-danger delete_btn');
       $('#delete_reminder_button').text("Confirm Deletion");
       clicked_event.attemptedDelete = true;
     }else{
@@ -197,7 +208,7 @@ function fillEditForm(event){
 function fetchUpcoming() {
   // remove all the old table rows, since we're refetching
   $('#upcomingTable').find('tr').remove();
-  $('#upcoming_loader').show();
+  $('#upcomingTable').append('<tr id="loadingRow"><td>Loading...</td><td><img class="save_loader_img" src="/assets/ajax-loader.gif"></td></tr>');
   var now = new Date();
   var now = now.getTime() / 1000; // this gives us the current seconds since the epoch
   var future = now + 432000; // 60 sec/min * 60 min/hour * 24 hour/day * 5 days = 432,000 seconds
@@ -205,7 +216,7 @@ function fetchUpcoming() {
     url: '/api/v1/reminders?start=' + Math.floor(now) + '&end=' + Math.floor(future),
     type: 'GET',
     success: function(json) {
-      $('#upcoming_loader').hide();
+      $('#loadingRow').remove();
       for(var i = 0; i < json.length; i++){
         $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
       }
