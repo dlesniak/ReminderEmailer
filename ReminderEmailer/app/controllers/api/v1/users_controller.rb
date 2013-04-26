@@ -9,6 +9,12 @@ module Api
         respond_with @user
       end
 
+      def key
+        key = ApiKey.find params[:id]
+        @user = User.find key.User_id
+        respond_with @user
+      end
+
       private
         def restrict_access
           token = request.headers['Authorization']
@@ -17,10 +23,10 @@ module Api
           if found
             key = ApiKey.where(:access_token => token).first
             if not key.role == 'mailer'
-              respond_with '{"Acces Denied"}', :status => :unauthorized
+              respond_with '{"Access Denied"}', :status => :unauthorized
             end
           else
-            respond_with '{"Acces Denied"}', :status => :unauthorized
+            respond_with '{"Access Denied"}', :status => :unauthorized
           end
         end
     end

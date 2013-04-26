@@ -10,15 +10,17 @@ end
 mail = Mail.new do
   from 'reminderemailer@gmail.com'
   to 'eric.d.brown23@gmail.com'
-  subject 'Test Email'
-  
-  text_part do
-    body 'This is plain text'
-  end
+  subject 'Reminder: Title is coming up soon!'
 
   html_part do
     content_type 'text/html; charset=UTF-8'
-    body '<h1>This is HTML</h1>'
+    body %{
+      <h3>Title is coming up!</h3>
+      <p>You scheduled a reminder for Title at Date. Don't forget about it!</p>
+      <div>
+        customhtml
+      </div>
+    }
   end
 end
 Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)

@@ -56,8 +56,11 @@ ReminderEmailer::Application.routes.draw do
     # prefixes /api/ to api urls
     namespace :v1 do
       resources :reminders, :users
+      match 'users/key/:id' => 'users#key', :as => 'users'
     end
   end
+
+  #match 'api/v1/:controller/:action/:id'
 
   root :to => 'reminders#index'
 
@@ -73,7 +76,9 @@ ReminderEmailer::Application.routes.draw do
     end
   end
 
-  resources :api_keys, :only => [:index, :new]
+  resources :api_keys
+
+
 
   # See how all your routes lay out with "rake routes"
 

@@ -10,6 +10,7 @@
               %th Title
               %th Date and Time
           %tbody{:id => 'upcomingTable'}
+        %img{:src => '/assets/ajax-loader.gif', :id => 'upcoming_loader', :class => 'save_loader_img', :style => 'display: none;'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
 
 / This is the new reminder modal
@@ -23,11 +24,8 @@
       = label :reminder, :title, 'Reminder Title'
       = text_field :reminder, 'title'
 
-      = label :reminder, :start, 'Start Date and Time'
+      = label :reminder, :start, 'Date and Time'
       = text_field :reminder, :start, :class => 'date_picker_field'
-
-      = label :reminder, :end, 'End Date and Time'
-      = text_field :reminder, :end, :class => 'date_picker_field'
 
       = label :reminder, :repeat, 'Repeat Interval'
       = text_field :reminder, :repeat
@@ -51,11 +49,8 @@
       = label :edit_reminder, :title, 'Reminder Title'
       = text_field :edit_reminder, 'title'
 
-      = label :edit_reminder, :start, 'Start Date and Time'
+      = label :edit_reminder, :start, 'Date and Time'
       = text_field :edit_reminder, :start, :class => 'date_picker_field'
-
-      = label :edit_reminder, :end, 'End Date and Time'
-      = text_field :edit_reminder, :end, :class => 'date_picker_field'
 
       = label :edit_reminder, :repeat, 'Repeat Interval'
       = text_field :edit_reminder, :repeat

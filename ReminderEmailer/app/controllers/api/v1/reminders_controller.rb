@@ -25,7 +25,20 @@ module Api
 
       def update
         @reminder = Reminder.find params[:id]
-        @reminder.update_attributes!(params[:edit_reminder])
+        # this is ugly as hell...
+        if @reminder.repeat > 0
+          day_diff = params[:edit_reminder][:start].to_datetime.yday - @reminder.start.yday
+          @reminder.start += day_diff.days
+          @reminder.repeat = params[:edit_reminder][:repeat]
+          @reminder.customhtml = params[:edit_reminder][:customhtml]
+        else
+          @reminder.update_attributes!(params[:edit_reminder])  
+        end
+        endDT = @reminder.start.dup
+        endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
+        endDT += 1.days
+        @reminder.end = endDT
+        @reminder.save
         respond_with @reminder
       end
 
@@ -33,6 +46,10 @@ module Api
         key = ApiKey.where(:User_id => current_user.id).first
         @reminder = Reminder.new(params[:reminder])
         @reminder.api_key_id = key.id
+        endDT = @reminder.start.dup
+        endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
+        endDT += 1.days
+        @reminder.end = endDT
         @reminder.save
         respond_with @reminder
       end
@@ -55,10 +72,10 @@ module Api
               # RESTful api's should probably not be using sessions...
               @bot_key = ApiKey.where(access_token: token).first
               if not found
-                respond_with '{"Acces Denied"}', :status => :unauthorized
+                respond_with '{"Access Denied"}', :status => :unauthorized
               end
             else
-              respond_with '{"Acces Denied"}', :status => :unauthorized
+              respond_with '{"Access Denied"}', :status => :unauthorized
             end
           end
         end
