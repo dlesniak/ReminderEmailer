@@ -26,4 +26,3 @@ class RemindersController < ApplicationController
     @reminder.delete
   end
 end
-# DANS COMMENT

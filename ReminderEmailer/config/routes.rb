@@ -78,7 +78,7 @@ ReminderEmailer::Application.routes.draw do
 
   resources :api_keys
 
-
+ # resources :passwords
 
   # See how all your routes lay out with "rake routes"
 
