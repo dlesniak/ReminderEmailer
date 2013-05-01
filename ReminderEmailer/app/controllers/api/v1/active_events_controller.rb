@@ -1,12 +1,22 @@
 module Api
   module V1
-    class PluginDescriptorsController < ApplicationController
+    class ActiveEventsController < ApplicationController
       respond_to :json
       before_filter :restrict_access
 
-      def show
-        @plugin = PluginDescriptor.find params[:id]
-        respond_with @plugin, :location => nil
+      def index
+        if @bot_key.role == 'eventbot'
+          @events = ActiveEvent.all
+        else
+          @events = ActiveEvent.where(:user_id => current_user.id)
+        end
+        respond_with @events, :location => nil
+      end
+
+      def create
+        @new_event = ActiveEvent.create!(:plugin_id => params['plugin_id'], :configuration => params['configuration'])
+
+        respond_with @new_event, :location => nil
       end
 
       private

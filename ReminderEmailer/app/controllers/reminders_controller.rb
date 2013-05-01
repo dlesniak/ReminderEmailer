@@ -3,6 +3,7 @@ class RemindersController < ApplicationController
 
   def index
     @plugins = PluginDescriptor.all
+    @api_key_string = ApiKey.where(:User_id => current_user.id).first.access_token
   end
 
   def update

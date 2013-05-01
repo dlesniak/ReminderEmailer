@@ -82,9 +82,13 @@
       %option{:value => '0'} 
       = @plugins.each do |plugin|
         %option{:value => plugin.id}= plugin.title
+    %div{:id => 'pluginDescription', :style => 'display: none;'}
+      %h5 Plugin Description
+      %p
     %div{:id => 'eventFormBox'}
       %form{:id => 'eventForm'}
   %div{:class => 'modal-footer'}
     %a{:href => '#', :id => 'save_event_link', :class => 'btn btn-primary', :style => 'display: none;'} Register Event
     %button{:class => 'btn new_event_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
+%div{:id => "SuperSecretAccessToken", :style => 'display: none;'}= @api_key_string
