@@ -15,6 +15,15 @@
               %td 
                 %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
+      %div{:class => 'eventRegisterBox'}
+        %h4 Register for an Event
+        %label Choose an Event Type:
+        %select{:id => 'eventSelect'}
+          %option{:value => '1'} Test
+          = @plugins.each do |plugin|
+            %option{:value => plugin.id}= plugin.title
+        %div{:id => 'eventFormBox'}
+          %form{:id => 'eventForm'}
 
 / This is the new reminder modal
 %div{:id => 'newReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}

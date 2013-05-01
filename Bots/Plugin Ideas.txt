@@ -15,7 +15,8 @@ Use two separate models, one for the events and one for the customized event wit
 Description Model
 =================
 - Event title
-- Event plugin title
+- Event Description
+- Event source code filename
 - Event form html
 
 ActiveEvent Model
@@ -32,4 +33,3 @@ The script which runs events should go through the following process
   - If the event should be run, do the following:
     - Load the script from the plugin directory using the script name
     - Pass info to the script, such as api_key and event info
-    - 

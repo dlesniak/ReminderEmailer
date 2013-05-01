@@ -43,8 +43,14 @@ $(document).ready(function() {
                 $('#calendar').fullCalendar('refetchEvents');
               }
               fetchUpcoming();
+            },
+            error: function() {
+              alert("There was an error loading events!");
             }
           });
+        },
+        error: function() {
+          alert("There was an error loading events!");
         }
       });
     },
@@ -61,8 +67,8 @@ $(document).ready(function() {
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
-      transformedData['backgroundColor'] = 'rgb(04, 9C, DB)';
-      transformedData['textColor'] = 'rgb(00, 00, 00)';
+      transformedData['backgroundColor'] = '#057af0';
+      transformedData['textColor'] = '#FFFFFF';
       transformedData['attemptedDelete'] = false;
       return transformedData;
     }
@@ -99,6 +105,9 @@ $(document).ready(function() {
         $('#newReminder').modal('hide');
         $('#new_loader').hide();
         fetchUpcoming();
+      },
+      error: function() {
+        alert("There was an error loading events!");
       }
     });
   });
@@ -136,8 +145,14 @@ $(document).ready(function() {
             $('#editReminder').modal('hide');
             $('#edit_loader').hide();
             fetchUpcoming();
+          },
+          error: function() {
+            alert("There was an error loading events!");
           }
         });
+      },
+      error: function() {
+        alert("There was an error loading events!");
       }
     });
   });
@@ -180,9 +195,34 @@ $(document).ready(function() {
           $('#editReminder').modal('hide');
           $('#delete_loader').hide();
           fetchUpcoming();
+        },
+        error: function() {
+          alert("There was an error loading events!");
         }
       });
     }
+  });
+
+  $('#eventSelect').change( function() {
+    var selected = $('#eventSelect').find(':selected').val();
+    $.ajax({
+      url: '/api/v1/plugin_descriptors/' + selected + '/',
+      type: 'GET',
+      dataType: 'JSON', 
+      success: function(json) {
+        $('#eventForm').empty();
+        $('#eventForm').html(json.form_html);
+      },
+      error: function() {
+        alert("There was an error fetching plugins");
+      }
+    });
+  });
+
+  $('#eventForm').submit( function(e) {
+    alert("form submitted");
+
+    e.preventDefault();
   });
 
   fetchUpcoming();
@@ -220,6 +260,9 @@ function fetchUpcoming() {
       for(var i = 0; i < json.length; i++){
         $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
       }
+    },
+    error: function() {
+      alert("There was an error loading events!");
     }
   });
 }
