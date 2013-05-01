@@ -17,7 +17,8 @@
           %td= button_to "Make Admin",  add_admin_group_path(@group, :user_id => group_user), :id => group_user.email+"id"
         - if GroupsUser.isAdmin?(@group, group_user)
           %td= button_to "Remove Admin", remove_admin_group_path(@group, :user_id => group_user), :id => group_user.email+"id"
-          
+
+= link_to "Back to #{@group.name} details", group_path(@group)   
 
 = form_tag group_path(@group), :method => :put do
 
@@ -25,6 +26,6 @@
   = text_field :group, 'name'
 
   = label :group, :description, 'Description'
-  = text_field :group, 'description'
+  = text_area :group, 'description', :class => 'input-xxlarge'
   %br
   = submit_tag 'Update Group Info'
