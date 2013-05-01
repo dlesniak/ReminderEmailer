@@ -18,6 +18,10 @@ Description Model
 - Event Description
 - Event source code filename
 - Event form html
+  - Some rules for the form html included here:
+    - Each form element has to be an <input> tag, at least for now
+    - The form element's name will be the name filled in the JSON string.
+      - ie. <input name='cheese' value='waffle'> will store a JSON string of "{'cheese': 'waffle'}"
 
 ActiveEvent Model
 =================

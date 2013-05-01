@@ -73,9 +73,10 @@ module Api
             if found
               # RESTful api's should probably not be using sessions...
               @bot_key = ApiKey.where(access_token: token).first
-              if not found
-                respond_with '{"Access Denied"}', :status => :unauthorized
-              end
+              # I'm not really sure why I did the below
+              # if not found
+              #   respond_with '{"Access Denied"}', :status => :unauthorized
+              # end
             else
               respond_with '{"Access Denied"}', :status => :unauthorized
             end

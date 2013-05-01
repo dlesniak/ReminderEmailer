@@ -9,6 +9,10 @@ module Api
         respond_with @plugin
       end
 
+      def create
+
+      end
+
       private
         def restrict_access
           # we need to grant access to the api from both bots with api keys and users coming from jquery ajax calls
@@ -20,9 +24,9 @@ module Api
             if found
               # RESTful api's should probably not be using sessions...
               @bot_key = ApiKey.where(access_token: token).first
-              if not found
-                respond_with '{"Access Denied"}', :status => :unauthorized
-              end
+              # if not found
+              #   respond_with '{"Access Denied"}', :status => :unauthorized
+              # end
             else
               respond_with '{"Access Denied"}', :status => :unauthorized
             end

@@ -1,5 +1,6 @@
 // There has to be a better way then keeping this global around
 var clicked_event;
+var selected_plugin_id;
 $(document).ready(function() {
   $('#calendar').fullCalendar({
     editable: true,
@@ -205,24 +206,59 @@ $(document).ready(function() {
 
   $('#eventSelect').change( function() {
     var selected = $('#eventSelect').find(':selected').val();
-    $.ajax({
-      url: '/api/v1/plugin_descriptors/' + selected + '/',
-      type: 'GET',
-      dataType: 'JSON', 
-      success: function(json) {
-        $('#eventForm').empty();
-        $('#eventForm').html(json.form_html);
-      },
-      error: function() {
-        alert("There was an error fetching plugins");
-      }
-    });
+    if(selected === '0'){
+      $('#eventForm').empty();
+      $('#save_event_link').hide();
+    }else{
+      $('#eventForm').html('<p>Loading Form...</p>');
+      $.ajax({
+        url: '/api/v1/plugin_descriptors/' + selected + '/',
+        type: 'GET',
+        dataType: 'JSON', 
+        success: function(json) {
+          $('#eventForm').empty();
+          $('#eventForm').html(json.form_html);
+          selected_plugin_id = json.id;
+          $('#save_event_link').show();
+        },
+        error: function() {
+          alert("There was an error fetching plugins");
+        }
+      });
+    }
   });
 
   $('#eventForm').submit( function(e) {
-    alert("form submitted");
-
+    alert("You shouldn't have a submit in your form html!");
     e.preventDefault();
+  });
+
+  $('#newEvent').on('hidden', function() {
+    $('#eventSelect').val('0');
+    $('#eventForm').empty();
+    $('#save_event_link').hide();
+  });
+
+  $('#save_event_link').on('click', function() {
+    var form = $('#eventForm');
+    var json_dump = {};
+    form.find('input').each(function(i, val) {
+      json_dump[$(val).attr('name')] = $(val).val();
+    });
+    save_json = {'plugin_id': selected_plugin_id, 'configuration': JSON.stringify(json_dump)};
+    $.ajax({
+      url: '/api/v1/plugin_descriptors/',
+      type: 'POST',
+      data: save_json,
+      dataType: 'JSON',
+      success: function() {
+        alert("Saved!");
+        ('#newEvent').modal('hide');
+      },
+      error: function() {
+        alert("There was a problem registering the event!")
+      }
+    });
   });
 
   fetchUpcoming();
@@ -262,7 +298,7 @@ function fetchUpcoming() {
       }
     },
     error: function() {
-      alert("There was an error loading events!");
+      alert("There was an error loading reminders!");
     }
   });
 }
