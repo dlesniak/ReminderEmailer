@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :groups_users
   has_many :groups, :through => :groups_users
   has_one :api_key
+  belongs_to :active_event
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

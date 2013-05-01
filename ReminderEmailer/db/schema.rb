@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425172347) do
+ActiveRecord::Schema.define(:version => 20130501001256) do
+
+  create_table "active_events", :force => true do |t|
+    t.integer  "plugin_id"
+    t.integer  "user_id"
+    t.string   "configuration"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "api_keys", :force => true do |t|
     t.string   "access_token"
@@ -39,6 +47,15 @@ ActiveRecord::Schema.define(:version => 20130425172347) do
 
   add_index "groups_users", ["group_id", "user_id"], :name => "index_groups_users_on_group_id_and_user_id"
   add_index "groups_users", ["user_id", "group_id"], :name => "index_groups_users_on_user_id_and_group_id"
+
+  create_table "plugin_descriptors", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "filename"
+    t.string   "form_html"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "reminders", :force => true do |t|
     t.string   "title"

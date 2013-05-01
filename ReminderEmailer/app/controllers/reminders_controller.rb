@@ -2,7 +2,7 @@ class RemindersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    # do nothing
+    @plugins = PluginDescriptor.all
   end
 
   def update

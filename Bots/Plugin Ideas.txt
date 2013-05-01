@@ -1,0 +1,39 @@
+Model Fields
+============
+Event Title (Probably what's actually displayed to the user)
+Event Plugin Script name (the actual *.rb file, probably hidden from the user)
+Event Configuration details
+  - Importance (probably affects how often event is run)
+  - Plugin specific info, such as when to create reminder if event occurs
+    - Create reminder at specific time if event occurs
+    - Create reminder at an offset from the event if event occurs
+    - Plugin data should be stored as a string of JSON on the server, interpreted by the plugin as JSON to allow arbitrary configuration
+Foreign key to the user who is registered for event
+
+Use two separate models, one for the events and one for the customized event with a user
+
+Description Model
+=================
+- Event title
+- Event Description
+- Event source code filename
+- Event form html
+  - Some rules for the form html included here:
+    - Each form element has to be an <input> tag, at least for now
+    - The form element's name will be the name filled in the JSON string.
+      - ie. <input name='cheese' value='waffle'> will store a JSON string of "{'cheese': 'waffle'}"
+
+ActiveEvent Model
+=================
+- Foreign Key to Description of event
+- Foreign Key to User who is registered for event
+- JSON string dump of event specific configuration information, saved from the event form html
+
+Related Ideas
+=============
+The script which runs events should go through the following process
+  - Wake up, fetch all user's events from the server
+  - Iterate through every event, using importance to decide if event should be run
+  - If the event should be run, do the following:
+    - Load the script from the plugin directory using the script name
+    - Pass info to the script, such as api_key and event info
