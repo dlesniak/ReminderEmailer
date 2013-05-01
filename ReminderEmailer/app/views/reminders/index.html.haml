@@ -15,6 +15,9 @@
               %td 
                 %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
+    %div{:class => 'well'}
+      %h4 Events
+      %a{:href => '#newEvent', :id => 'newEventButton', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Register for an Event
 
 / This is the new reminder modal
 %div{:id => 'newReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
@@ -42,10 +45,10 @@
     %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
 / This is the edit reminder modal, and we're violating DRY with this
-%div{:id => 'editReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
+%div{:id => 'editReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'Edit Reminder', :'aria-hidden' => 'true'}
   %div{:class => 'modal-header'}
     %button{:type => 'button', :class => 'close edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
-    %h3{:id => 'New Reminder'} Create a new Reminder
+    %h3{:id => 'New Reminder'} Edit a Reminder
   %div{:class => 'modal-body'}
     = form_tag reminders_path, :id => 'edit_reminder_form', :class => 'modal-form', :method => 'put' do
 
@@ -67,3 +70,21 @@
     %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img', :id => 'edit_loader', :style => 'display: none;'}
     %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary'} Save Reminder
     %button{:class => 'btn edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
+
+%div{:id => 'newEvent', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
+  %div{:class => 'modal-header'}
+    %button{:type => 'button', :class => 'close edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
+    %h3{:id => 'New Reminder'} Register for an Event
+  %div{:class => 'modal-body'}
+    %h4 Register for an Event
+    %label Choose an Event Type:
+    %select{:id => 'eventSelect'}
+      %option{:value => '0'} 
+      = @plugins.each do |plugin|
+        %option{:value => plugin.id}= plugin.title
+    %div{:id => 'eventFormBox'}
+      %form{:id => 'eventForm'}
+  %div{:class => 'modal-footer'}
+    %a{:href => '#', :id => 'save_event_link', :class => 'btn btn-primary', :style => 'display: none;'} Register Event
+    %button{:class => 'btn new_event_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
+

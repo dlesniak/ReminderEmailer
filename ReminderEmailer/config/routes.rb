@@ -55,7 +55,7 @@ ReminderEmailer::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     # prefixes /api/ to api urls
     namespace :v1 do
-      resources :reminders, :users
+      resources :reminders, :users, :plugin_descriptors
       match 'users/key/:id' => 'users#key', :as => 'users'
     end
   end
