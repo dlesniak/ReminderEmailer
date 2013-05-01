@@ -218,6 +218,8 @@ $(document).ready(function() {
         success: function(json) {
           $('#eventForm').empty();
           $('#eventForm').html(json.form_html);
+          $('#pluginDescription p').text(json.description);
+          $('#pluginDescription').show();
           selected_plugin_id = json.id;
           $('#save_event_link').show();
         },
@@ -237,6 +239,9 @@ $(document).ready(function() {
     $('#eventSelect').val('0');
     $('#eventForm').empty();
     $('#save_event_link').hide();
+    $('#pluginDescription').hide();
+    $('#pluginDescription p').empty();
+    selected_plugin_id = 0;
   });
 
   $('#save_event_link').on('click', function() {
@@ -246,14 +251,15 @@ $(document).ready(function() {
       json_dump[$(val).attr('name')] = $(val).val();
     });
     save_json = {'plugin_id': selected_plugin_id, 'configuration': JSON.stringify(json_dump)};
+    access_token = $('#SuperSecretAccessToken').text();
     $.ajax({
-      url: '/api/v1/plugin_descriptors/',
+      url: '/api/v1/active_events/',
       type: 'POST',
+      headers: {'Authorization': access_token},
       data: save_json,
       dataType: 'JSON',
       success: function() {
-        alert("Saved!");
-        ('#newEvent').modal('hide');
+        $('#newEvent').modal('hide');
       },
       error: function() {
         alert("There was a problem registering the event!")

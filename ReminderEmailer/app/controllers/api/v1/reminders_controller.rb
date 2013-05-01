@@ -13,7 +13,6 @@ module Api
           end
           @reminders = Reminder.in_range(Integer(params[:start]), Integer(params[:end]), key)
           @repeaters = Reminder.find_repeating_reminders(Integer(params[:start]), Integer(params[:end]), key)
-          session.delete(:bot_key)
         end
         @reminders ||= []
         @repeaters ||= []
@@ -71,14 +70,9 @@ module Api
             token = request.headers['Authorization']
             found = ApiKey.exists?(access_token: token)
             if found
-              # RESTful api's should probably not be using sessions...
               @bot_key = ApiKey.where(access_token: token).first
-              # I'm not really sure why I did the below
-              # if not found
-              #   respond_with '{"Access Denied"}', :status => :unauthorized
-              # end
             else
-              respond_with '{"Access Denied"}', :status => :unauthorized
+              respond_with '{"Access Denied"}', :status => :unauthorized, :location => nil
             end
           end
         end
