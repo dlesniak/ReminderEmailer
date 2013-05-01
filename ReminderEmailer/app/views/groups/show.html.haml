@@ -21,7 +21,7 @@
       = link_to 'Edit Members', edit_group_path(@group)
     - if @group.private #&& GroupsUser.isAdmin?(@group, @user)
       = button_to 'Make Group Public', modify_public_private_group_path(@group)
-    - if !@group.private #&& GroupsUser.isAdmin?(@group, @user)
+    - else #!@group.private #&& GroupsUser.isAdmin?(@group, @user)
       = button_to 'Make Group Private', modify_public_private_group_path(@group)
     - if GroupsUser.inGroup?(@group, @user)
       = button_to 'Join Group', join_group_path(@group)
@@ -31,5 +31,5 @@
       = button_to 'Delete', group_path(@group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
 
 %div
-  = link_to 'Back to groups', groups_path
+  = link_to 'Back to Groups list', groups_path
 

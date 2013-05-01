@@ -76,6 +76,8 @@ ReminderEmailer::Application.routes.draw do
     end
   end
 
+  resources :users
+
   resources :api_keys
 
  # resources :passwords
