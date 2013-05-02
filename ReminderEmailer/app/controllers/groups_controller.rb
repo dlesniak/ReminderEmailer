@@ -3,6 +3,33 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all
+    @user = current_user
+    @user_groups = @user.groups
+
+    @has_unjoined_public_groups = false
+    @has_joined_public_groups = false
+    @has_joined_private_groups = false
+
+    @groups.each do |group|
+      if !@user_groups.exists? group
+        @has_unjoined_public_groups = true
+      end
+    end
+    @user_groups.each do |group|
+      if group.private
+        @has_joined_private_groups = true
+      elsif !group.private
+        @has_joined_public_groups = true
+      end
+    end
+    print "\n\n\n\n\n"
+    print @has_unjoined_public_groups.to_s
+    print "\n\n\n\n\n"
+    print @has_joined_public_groups.to_s
+    print "\n\n\n\n\n"
+    print @has_joined_private_groups.to_s
+
+    print "\n\n\n\n\n"
   end
 
   def show

@@ -1,16 +1,46 @@
 -#  This file is app/views/groups/index.html.haml
-%h1 All Groups
+- if @has_unjoined_public_groups
+  %h2 Public Groups
 
-%table{:id => 'groups', :class => 'table'}
-  %thead
-    %tr
-      %th Group Name
-      %th Visit Group Page 
-  %tbody
-    - @groups.each do |group|
-      - if !group.private
-        %tr
-          %td= group.name 
-          %td= link_to "More about #{group.name}", group_path(group)
+  %table{:id => 'public-groups', :class => 'table'}
+    %thead
+      %tr
+        %th Group Name
+        %th Visit Group Page 
+    %tbody
+      - @groups.each do |group|
+        - if !@user_groups.exists? group
+          %tr
+            %td= group.name 
+            %td= link_to "More about #{group.name}", group_path(group)
+
+- if @has_joined_public_groups
+  %h2 Your Public Groups
+
+  %table{:id => 'your-public-groups', :class => 'table'}
+    %thead
+      %tr
+        %th Group Name
+        %th Visit Group Page 
+    %tbody
+      - @user_groups.each do |group|
+        - if !group.private
+          %tr
+            %td= group.name 
+            %td= link_to "More about #{group.name}", group_path(group)
+- if @has_joined_private_groups
+  %h2 Your Private Groups
+
+  %table{:id => 'your-private-groups', :class => 'table'}
+    %thead
+      %tr
+        %th Group Name
+        %th Visit Group Page 
+    %tbody
+      - @user_groups.each do |group|
+        - if group.private
+          %tr
+            %td= group.name 
+            %td= link_to "More about #{group.name}", group_path(group)
 
 = link_to 'Create New Group', new_group_path, {:class => 'btn btn-primary'}
