@@ -70,6 +70,7 @@ ReminderEmailer::Application.routes.draw do
     member do
       post 'join'
       delete 'delete_user_from'
+      post 'add_user_to'
       post 'add_admin'
       post 'remove_admin'
       post 'modify_public_private'

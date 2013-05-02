@@ -9,5 +9,5 @@
   %tbody
     - @users.each do |user|
       %tr
-      %td= group.name 
+      %td= user.email
       %td= link_to "More about #{user.email}", user_path(user)

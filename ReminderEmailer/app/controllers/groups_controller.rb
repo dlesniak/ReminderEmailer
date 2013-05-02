@@ -33,6 +33,19 @@ class GroupsController < ApplicationController
   def edit
     @group = Group.find params[:id]
     @group_users = @group.users
+    @users = User.all
+
+    @users.each do |user|
+      #@group_users.each do |group_user|
+        #if user.email == group_user.email
+          #print "yes\n"
+        #end
+      #end
+      if @group_users.exists? user
+        print "yes\n"
+      end
+      #print user.class
+    end
   end
 
   def join
@@ -57,6 +70,15 @@ class GroupsController < ApplicationController
     elsif page_number.to_i == 1
       redirect_to edit_group_path(group)
     end
+  end
+
+  def add_user_to
+    group = Group.find(params[:id])
+    user = User.find(params[:user_id])
+    if !group.users.exists?(@user)
+      group.users << user
+    end
+    redirect_to edit_group_path(group)
   end
 
   def add_admin
