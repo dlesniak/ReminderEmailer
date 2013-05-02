@@ -11,10 +11,11 @@ class GroupsController < ApplicationController
     @has_joined_private_groups = false
 
     @groups.each do |group|
-      if !@user_groups.exists? group
+      if !@user_groups.exists?(group) && !group.private
         @has_unjoined_public_groups = true
       end
     end
+
     @user_groups.each do |group|
       if group.private
         @has_joined_private_groups = true
@@ -22,6 +23,7 @@ class GroupsController < ApplicationController
         @has_joined_public_groups = true
       end
     end
+
     print "\n\n\n\n\n"
     print @has_unjoined_public_groups.to_s
     print "\n\n\n\n\n"
