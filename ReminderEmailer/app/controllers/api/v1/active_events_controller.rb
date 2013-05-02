@@ -5,7 +5,7 @@ module Api
       before_filter :restrict_access
 
       def index
-        if @bot_key.role == 'eventbot'
+        if @bot_key.role == 'mailer'
           @events = ActiveEvent.all
         else
           @events = ActiveEvent.where(:user_id => current_user.id)

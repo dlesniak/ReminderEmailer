@@ -19,7 +19,7 @@ Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |http|
   # request = Net::HTTP::Get.new('/api/v1/users/1/')
   # set the authorization header in the request
   # request['Authorization'] = '441494c88d94b976ef7a25db7982c159' # a mailer key, Eric Desktop key
-  request['Authorization'] = 'edb8ba0599a76b67e8769eb1e7b4b4d7' # a mailer key, Eric Laptop key
+  request['Authorization'] = 'b819b563b60b5d7addd51fe2174260c6' # a mailer key, Eric Laptop key
   # request['Authorization'] = '3591751c803c7a4c8a39ce043f815623' # a user key
 
   response = http.request request # Net::HTTPResponse object
