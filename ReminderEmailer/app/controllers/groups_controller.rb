@@ -9,6 +9,7 @@ class GroupsController < ApplicationController
     id = params[:id]
     @user = current_user
     @group = Group.find(id)
+    @group_private = @group.private
     @group_users = @group.users
   end
 
@@ -19,7 +20,15 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.create!(params[:group])
+    user = current_user
     flash[:notice] = "#{@group.name} was successfully created."
+    @group.users << user
+    @group.groups_users.each do |entry|
+      if entry.user_id == user.id
+        entry.admin = true
+        entry.save
+      end
+    end
     redirect_to groups_path
   end
 
@@ -34,18 +43,6 @@ class GroupsController < ApplicationController
     @group = Group.find params[:id]
     @group_users = @group.users
     @users = User.all
-
-    @users.each do |user|
-      #@group_users.each do |group_user|
-        #if user.email == group_user.email
-          #print "yes\n"
-        #end
-      #end
-      if @group_users.exists? user
-        print "yes\n"
-      end
-      #print user.class
-    end
   end
 
   def join

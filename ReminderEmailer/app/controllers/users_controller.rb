@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def show
     id = params[:id]
     @user = current_user
-    @user = User.find(id)
     #@group_users = @group.users
   end
 

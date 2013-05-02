@@ -10,7 +10,7 @@
     - @group_users.each do |group_user|
       %tr
         %td= group_user.email 
-        %td= link_to "More about #{group_user.email}"
+        %td= link_to "More about #{group_user.email}", user_path(group_user)
 
 %div{:class => 'well'}
   %h5 Description
@@ -19,9 +19,9 @@
   %div
     - if GroupsUser.isAdmin?(@group, @user)
       = link_to 'Edit Members', edit_group_path(@group)
-    - if @group.private #&& GroupsUser.isAdmin?(@group, @user)
+    - if @group_private && GroupsUser.isAdmin?(@group, @user)
       = button_to 'Make Group Public', modify_public_private_group_path(@group)
-    - else #!@group.private #&& GroupsUser.isAdmin?(@group, @user)
+    - elsif !@group_private && GroupsUser.isAdmin?(@group, @user)
       = button_to 'Make Group Private', modify_public_private_group_path(@group)
     - if GroupsUser.inGroup?(@group, @user)
       = button_to 'Join Group', join_group_path(@group)

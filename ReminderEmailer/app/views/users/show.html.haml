@@ -1,35 +1,8 @@
 -# in app/views/groups/show.html.haml
-%h2 Details about #{@group.name}
+%h2 Details about #{@user.email}
 
-%table{:id => 'group_users', :class => 'table'}
-  %thead
-    %tr
-      %th Member Name
-      %th Visit Member Page 
-  %tbody
-    - @group_users.each do |group_user|
-      %tr
-        %td= group_user.email 
-        %td= link_to "More about #{group_user.email}"
-
-%div{:class => 'well'}
-  %h5 Description
-  %p 
-    =@group.description
-  %div
-    - if GroupsUser.isAdmin?(@group, @user)
-      = link_to 'Edit Members', edit_group_path(@group)
-    - if @group.private #&& GroupsUser.isAdmin?(@group, @user)
-      = button_to 'Make Group Public', modify_public_private_group_path(@group)
-    - if !@group.private #&& GroupsUser.isAdmin?(@group, @user)
-      = button_to 'Make Group Private', modify_public_private_group_path(@group)
-    - if GroupsUser.inGroup?(@group, @user)
-      = button_to 'Join Group', join_group_path(@group)
-    - if !GroupsUser.inGroup?(@group, @user)
-      = button_to 'Leave Group', delete_user_from_group_path(@group, :user_id => @user.id, :page => 0), :method => :delete
-    - if GroupsUser.isAdmin?(@group, @user)
-      = button_to 'Delete', group_path(@group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
-
-%div
-  = link_to 'Back to groups', groups_path
+%ul#details
+  %li
+    Email:
+    = @user.email
 
