@@ -13,9 +13,9 @@ reminders.each do |reminder|
   Reminder.create!(reminder)
 end
 
-groups = [{:name => "Intramural Basketball Team", :description => "Group for members of the local intramural basketball team.", :private => false}, 
-          {:name => "Spelunking Club",            :description => "We love exploring caves. If you do too, feel free to join!", :private => false},
-          {:name => "SELT Group",                 :description => "Making SaaS apps with the MAGIC of Ruby and Rails!", :private => false}]
+groups = [{:name => "Intramural Basketball Team", :description => "Group for members of the local intramural basketball team.", :private => false, :owner_id => 1}, 
+          {:name => "Spelunking Club",            :description => "We love exploring caves. If you do too, feel free to join!", :private => false, :owner_id => 2},
+          {:name => "SELT Group",                 :description => "Making SaaS apps with the MAGIC of Ruby and Rails!", :private => false, :owner_id => 1}]
 
 groups.each do |group|
   Group.create!(group)

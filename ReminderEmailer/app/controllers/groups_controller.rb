@@ -23,15 +23,6 @@ class GroupsController < ApplicationController
         @has_joined_public_groups = true
       end
     end
-
-    print "\n\n\n\n\n"
-    print @has_unjoined_public_groups.to_s
-    print "\n\n\n\n\n"
-    print @has_joined_public_groups.to_s
-    print "\n\n\n\n\n"
-    print @has_joined_private_groups.to_s
-
-    print "\n\n\n\n\n"
   end
 
   def show
@@ -43,13 +34,13 @@ class GroupsController < ApplicationController
   end
 
   def new
-    @user_id = current_user
+    @user = current_user
     # default: render 'new' template
   end
 
   def create
-    @group = Group.create!(params[:group])
     user = current_user
+    @group = Group.create!(params[:group].merge(:owner_id => user.id))
     flash[:notice] = "#{@group.name} was successfully created."
     @group.users << user
     @group.groups_users.each do |entry|
@@ -94,7 +85,11 @@ class GroupsController < ApplicationController
     if page_number.to_i == 0
       redirect_to group_path(group)
     elsif page_number.to_i == 1
-      redirect_to edit_group_path(group)
+      if(current_user.id = params[:user_id])
+        redirect_to group_path(group)
+      else
+        redirect_to edit_group_path(group)
+      end
     end
   end
 
