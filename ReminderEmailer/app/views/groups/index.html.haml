@@ -9,7 +9,7 @@
         %th Visit Group Page 
     %tbody
       - @groups.each do |group|
-        - if !@user_groups.exists? group
+        - if !@user_groups.exists?(group) && !group.private
           %tr
             %td= group.name 
             %td= link_to "More about #{group.name}", group_path(group)
