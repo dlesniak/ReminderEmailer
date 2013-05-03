@@ -79,6 +79,7 @@ ReminderEmailer::Application.routes.draw do
 
   resources :users
 
+  match '/api_keys/new_event_bot'
   resources :api_keys
   resources :plugin_descriptors
 

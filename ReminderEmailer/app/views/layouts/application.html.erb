@@ -25,6 +25,7 @@
     <div class="navbar">
       <div class="navbar-inner">
         <a class="brand" href="#">Reminder Emailer</a>
+        <% if user_signed_in? %>
         <ul class="nav">
           <li><%= link_to "Reminders", reminders_path %></li>
           <li><%= link_to "Groups", groups_path %></li>
@@ -32,6 +33,7 @@
           <li><%= link_to "Change Password", edit_password_path(resource_name)  %></li>
           <li><%= link_to "Sign Out", destroy_user_session_path %></li>
         </ul>
+        <% end %>
       </div>
     </div>
   <%= yield %>

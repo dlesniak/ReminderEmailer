@@ -44,7 +44,14 @@ module Api
       end
 
       def create
-        key = ApiKey.where(:User_id => current_user.id).first
+        if !@bot_key.nil? and @bot_key.role == 'event_bot'
+          # if an event bot needs to make a reminder, we have to find the user it applies to via the query string
+          key = ApiKey.where(:User_id => params[:uid]).first
+          params[:reminder][:source] = 'event_bot'
+        else
+          key = ApiKey.where(:User_id => current_user.id).first
+          params[:reminder][:source] = 'user'
+        end
         @reminder = Reminder.new(params[:reminder])
         @reminder.api_key_id = key.id
         endDT = @reminder.start.dup

@@ -11,7 +11,7 @@ $(document).ready(function() {
         type: 'GET',
         //cache: true,
         error: function() {
-          alert("There was an error loading events!");
+          console.log("There was an error loading events in the first place");
         }
       }
     ],
@@ -46,12 +46,12 @@ $(document).ready(function() {
               fetchUpcoming();
             },
             error: function() {
-              alert("There was an error loading events!");
+              console.log("There was an error loading events in eventDrop's GET");
             }
           });
         },
         error: function() {
-          alert("There was an error loading events!");
+          console.log("There was an error loading events in eventDrop's PUT");
         }
       });
     },
@@ -68,8 +68,13 @@ $(document).ready(function() {
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
-      transformedData['backgroundColor'] = '#057af0';
-      transformedData['textColor'] = '#FFFFFF';
+      if(eventData.source === "event_bot"){
+        transformedData['backgroundColor'] = '#F26531';
+        transformedData['textColor'] = '#FFFFFF';
+      }else{
+        transformedData['backgroundColor'] = '#057af0';
+        transformedData['textColor'] = '#FFFFFF';
+      }
       transformedData['attemptedDelete'] = false;
       return transformedData;
     }
@@ -108,7 +113,7 @@ $(document).ready(function() {
         fetchUpcoming();
       },
       error: function() {
-        alert("There was an error loading events!");
+        console.log("There was an error loading events!");
       }
     });
   });
@@ -148,12 +153,12 @@ $(document).ready(function() {
             fetchUpcoming();
           },
           error: function() {
-            alert("There was an error loading events!");
+            console.log("There was an error loading events in edit's GET");
           }
         });
       },
       error: function() {
-        alert("There was an error loading events!");
+        console.log("There was an error loading events in edit's PUT");
       }
     });
   });
@@ -198,7 +203,7 @@ $(document).ready(function() {
           fetchUpcoming();
         },
         error: function() {
-          alert("There was an error loading events!");
+          console.log("There was an error loading events in delete's DELETE");
         }
       });
     }
@@ -224,7 +229,7 @@ $(document).ready(function() {
           $('#save_event_link').show();
         },
         error: function() {
-          alert("There was an error fetching plugins");
+          console.log("There was an error fetching plugins");
         }
       });
     }
@@ -262,7 +267,7 @@ $(document).ready(function() {
         $('#newEvent').modal('hide');
       },
       error: function() {
-        alert("There was a problem registering the event!")
+        console.log("There was a problem registering the event!")
       }
     });
   });
@@ -304,7 +309,7 @@ function fetchUpcoming() {
       }
     },
     error: function() {
-      alert("There was an error loading reminders!");
+      console.log("There was an error loading reminders in fetchUpcoming's GET");
     }
   });
 }

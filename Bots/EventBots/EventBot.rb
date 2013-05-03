@@ -53,7 +53,7 @@ class EventBot
       require plugin_desc['filename']
       className = plugin_desc['filename'].sub('.rb', '').capitalize
       event_class = class_from_string className
-      event_object = event_class.new
+      event_object = event_class.new(event['user_id'])
       event_object.run_handler(event['configuration'], @access_token)
     end
   end
