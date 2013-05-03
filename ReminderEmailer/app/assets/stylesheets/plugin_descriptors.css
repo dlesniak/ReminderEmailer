@@ -1,0 +1,10 @@
+#new_plugin_form textarea {
+  width: 600px;
+  height: 100px;
+}
+#plugin_title {
+  width: 200px;
+}
+#plugin_delete_button {
+  margin-top: 10px;
+}

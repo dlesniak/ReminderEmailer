@@ -18,11 +18,19 @@ class PluginDescriptorsController < ApplicationController
     redirect_to plugin_descriptors_path
   end
 
-  def update
+  def edit
+    @plugin = PluginDescriptor.find params[:id]
+  end
 
+  def update
+    @movie = PluginDescriptor.find params[:id]
+    @movie.update_attributes!(params[:plugin])
+    redirect_to plugin_descriptors_path
   end
 
   def destroy
-
+    @movie = PluginDescriptor.find params[:id]
+    @movie.destroy
+    redirect_to plugin_descriptors_path
   end
 end

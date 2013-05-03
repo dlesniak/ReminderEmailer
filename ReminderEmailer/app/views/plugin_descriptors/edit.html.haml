@@ -1,6 +1,6 @@
-%h2 Create a new Plugin
+%h2 Edit a Plugin
 %div{:class => 'well'}
-  = form_tag plugin_descriptors_path, :id => 'new_plugin_form' do
+  = form_tag plugin_descriptor_path(@plugin), :id => 'new_plugin_form', :method => 'put' do
     %div{:class => 'row'}
       %div{:class => 'span3'}
         = label :plugin, :title, 'Plugin Title'

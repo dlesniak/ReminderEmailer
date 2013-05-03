@@ -1,0 +1,13 @@
+%h2 #{@plugin.title}
+%div{:class => 'well'}
+  %h5 Description
+  %p= @plugin.description
+
+  %h5 Filename
+  %p= @plugin.filename
+
+  %h5 Form HTML
+  %p= @plugin.form_html
+
+  = link_to "Edit Plugin", edit_plugin_descriptor_path(@plugin), {:class => 'btn btn-primary'}
+  = button_to "Delete Plugin", plugin_descriptor_path(@plugin), :method => 'delete', :class => 'btn btn-danger', :id => 'plugin_delete_button'

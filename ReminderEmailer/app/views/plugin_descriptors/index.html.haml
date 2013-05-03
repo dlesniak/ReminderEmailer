@@ -6,8 +6,8 @@
       %th Filename
       %th 
   %tbody
-    %tr
-      - @plugins.each do |plugin|
+    - @plugins.each do |plugin|
+      %tr
         %td= plugin.title
         %td= plugin.filename
         %td= link_to "Edit this plugin", plugin_descriptor_path(plugin)
