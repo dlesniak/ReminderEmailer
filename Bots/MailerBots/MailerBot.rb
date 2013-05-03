@@ -10,32 +10,42 @@ rescue LoadError => e
   exit 1
 end
 
-uri = URI('http://localhost:3000')
-
-Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |http|
-  unixStart = Time.now
-  unixEnd = Time.now + 432000
-  request = Net::HTTP::Get.new('/api/v1/reminders?start=' + (unixStart.to_i.to_s) + '&end=' + (unixEnd.to_i.to_s))
-  # request = Net::HTTP::Get.new('/api/v1/users/1/')
-  # set the authorization header in the request
-  # request['Authorization'] = '441494c88d94b976ef7a25db7982c159' # a mailer key, Eric Desktop key
-  request['Authorization'] = 'b819b563b60b5d7addd51fe2174260c6' # a mailer key, Eric Laptop key
-  # request['Authorization'] = '3591751c803c7a4c8a39ce043f815623' # a user key
-
-  response = http.request request # Net::HTTPResponse object
-
-  if response.body == '{"Access Denied"}'
-    puts "Don't forget to create a bot and set the access key!"
-    exit 1
+class MailerBot
+  def initialize(access_token, site_url, site_port, proxy_url, proxy_port)
+    @access_token = access_token
+    @site_url = site_url
+    @site_port = site_port
+    @proxy_url = proxy_url
+    @proxy_port = proxy_port
   end
-  data = JSON.parse response.body
 
-  puts "Got Reminders"
-  data.each do |reminder|
+  def fetchReminders
+    Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |http|
+      unixStart = Time.now
+      unixEnd = Time.now + 432000 # 5 days in seconds
+      request = Net::HTTP::Get.new('/api/v1/reminders?start=' + (unixStart.to_i.to_s) + '&end=' + (unixEnd.to_i.to_s))
+      request['Authorization'] = @access_token
+
+      response = http.request request # Net::HTTPResponse object
+
+      if response.body == '{"Access Denied"}'
+        puts "Don't forget to create a bot and set the access key!"
+        exit 1
+      end
+      data = JSON.parse response.body
+
+      puts "Got Reminders"
+      data.each do |reminder|
+        yield reminder
+      end
+    end
+  end
+
+  def fetchUserAndSendEmail(reminder)
     key_id = reminder['api_key_id']
-    Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |user_http|
+    Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |user_http|
       user_request = Net::HTTP::Get.new('/api/v1/users/key/' + key_id.to_s + '/')
-      user_request['Authorization'] = 'edb8ba0599a76b67e8769eb1e7b4b4d7'
+      user_request['Authorization'] = @access_token
 
       user_response = user_http.request user_request
 
@@ -66,4 +76,26 @@ Net::HTTP.start('localhost', 3000, 'localhost', 8888) do |http|
       end
     end
   end
+end
+
+site_url = 'localhost'
+site_port = 3000
+proxy_url = 'localhost'
+proxy_port = 8888
+
+ARGV.each do |arg|
+  if /\Asite_url=(?<surl>[\w:\/.\-_]*)\z/ =~ arg
+    site_url = surl
+  elsif /\Asite_port=(?<sport>[\d:\/.\-_]*)\z/ =~ arg
+    site_port = sport.to_i
+  elsif /\Aproxy_url=(?<purl>[\w:\/.\-_]*)\z/ =~ arg
+    proxy_url = purl
+  elsif /\Aproxy_port=(?<pport>[\d:\/.\-_]*)\z/ =~ arg
+    proxy_port = pport.to_i
+  end
+end
+
+mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', site_url, site_port, proxy_url, proxy_port)
+mailerBot.fetchReminders do |reminder|
+  mailerBot.fetchUserAndSendEmail reminder
 end

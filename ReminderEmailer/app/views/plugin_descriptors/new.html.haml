@@ -1,0 +1,17 @@
+%h2 Create a new Plugin
+%div{:class => 'container'}
+  = form_tag plugin_descriptors_path, :id => 'new_plugin_form' do
+
+    = label :plugin, :title, 'Plugin Title'
+    = text_field :plugin, 'title'
+
+    = label :plugin, :description, 'Description'
+    = text_area :plugin, :description
+
+    = label :plugin, :filename, 'Filename'
+    = text_field :plugin, :filename
+
+    = label :plugin, :form_html, 'Form HTML'
+    = text_area :plugin, :form_html
+
+    = submit_tag 'Save Plugin', {:class => 'btn btn-primary'}

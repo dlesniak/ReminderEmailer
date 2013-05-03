@@ -80,6 +80,7 @@ ReminderEmailer::Application.routes.draw do
   resources :users
 
   resources :api_keys
+  resources :plugin_descriptors
 
  # resources :passwords
 
