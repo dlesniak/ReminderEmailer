@@ -16,7 +16,18 @@
                 %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img'}
       %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new Reminder
     %div{:class => 'well'}
-      %h4 Events
+      %div
+        %h4 Events
+        %table{:class => 'table'}
+          %thead
+            %tr
+              %th Title
+              %th 
+          %tbody{:id => 'eventsTable'}
+            %tr
+              %td Loading...
+              %td 
+                %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img'}
       %a{:href => '#newEvent', :id => 'newEventButton', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Register for an Event
 
 / This is the new reminder modal

@@ -313,3 +313,24 @@ function fetchUpcoming() {
     }
   });
 }
+
+function fetchEvents(){
+  access_token = $("#SuperSecretAccessToken").text();
+  $('#eventsTable').find('tr').remove();
+  $('#eventsTable').append('<tr id="events_loadingRow"><td>Loading...</td><td><img class="save_loader_img" src="/assets/ajax-loader.gif"></td></tr>');
+  $.ajax({
+    url: '/api/v1/active_events/',
+    headers: {'Authorization': access_token},
+    type: 'GET',
+    dateType: 'JSON',
+    success: function(json) {
+      $('#events_loadingRow').remove();
+      for(var i = 0; i < json.length; i++){
+        $('#eventsTable').append('<tr><td>' + json[i].title + '</td><td><button name=' + json[i].id + ' value="Edit Event" class="btn btn-info">' + '</td></tr>');
+      }
+    },
+    error: function() {
+      console.log("There was an error loading events in fetchEvent's GET")
+    }
+  });
+}
