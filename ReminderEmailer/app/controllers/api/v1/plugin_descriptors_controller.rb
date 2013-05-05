@@ -12,16 +12,12 @@ module Api
       private
         def restrict_access
           # we need to grant access to the api from both bots with api keys and users coming from jquery ajax calls
-          if user_signed_in?
-            true
+          token = request.headers['Authorization']
+          found = ApiKey.exists?(access_token: token)
+          if found
+            @bot_key = ApiKey.where(access_token: token).first
           else
-            token = request.headers['Authorization']
-            found = ApiKey.exists?(access_token: token)
-            if found
-              @bot_key = ApiKey.where(access_token: token).first
-            else
-              respond_with '{"Access Denied"}', :status => :unauthorized, :location => nil
-            end
+            respond_with '{"Access Denied"}', :status => :unauthorized, :location => nil
           end
         end
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502173819) do
+ActiveRecord::Schema.define(:version => 20130504050229) do
 
   create_table "active_events", :force => true do |t|
     t.integer  "plugin_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130502173819) do
     t.string   "configuration"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "title"
   end
 
   create_table "api_keys", :force => true do |t|

@@ -1,6 +1,14 @@
 // There has to be a better way then keeping this global around
 var clicked_event;
 var selected_plugin_id;
+var events = {};
+
+// Plugin forms don't include the csrf token since thier dynamic. Consider doing this a bit more carefully...
+$(document).ajaxSend(function(e, xhr, options) {
+  var token = $("meta[name='csrf-token']").attr("content");
+  xhr.setRequestHeader("X-CSRF-Token", token);
+});
+
 $(document).ready(function() {
   $('#calendar').fullCalendar({
     editable: true,
@@ -25,9 +33,11 @@ $(document).ready(function() {
       var deltaApplied = applyDeltas(event, dayDelta, minuteDelta);
       fillEditForm(deltaApplied);
       var serialized = $('#edit_reminder_form').serialize();
+      var access_token = $("#SuperSecretAccessToken").text();
       // This is essentially a sneaky update, so we send a put message to the server
       $.ajax({
         url: '/api/v1/reminders/' + event.id + '/',
+        headers: {'Authorization': access_token},
         type: 'PUT',
         data: serialized,
         dataType: 'JSON',
@@ -35,6 +45,7 @@ $(document).ready(function() {
       // if we succeed do a get request for the new data
           $.ajax({
             url: '/api/v1/reminders/' + event.id + '/',
+            headers: {'Authorization': access_token},
             type: 'GET',
             success: function(json) {
               event.start = json.start;
@@ -94,7 +105,8 @@ $(document).ready(function() {
   });
 
   $('#save_reminder_link').on('click', function(e) {
-    $('#new_loader').show();
+    var access_token = $("#SuperSecretAccessToken").text();
+    $('.new_loader').show();
     // stop the default linking behavior
     e.preventDefault();
     // submit the form
@@ -103,13 +115,14 @@ $(document).ready(function() {
     var sub_data = form.serialize();
     $.ajax({
       url: '/api/v1/reminders/',
+      headers: {'Authorization': access_token},
       type: 'POST',
       data: sub_data,
       dataType: "JSON",
       success: function() {
         $("#calendar").fullCalendar("refetchEvents");
         $('#newReminder').modal('hide');
-        $('#new_loader').hide();
+        $('.new_loader').hide();
         fetchUpcoming();
       },
       error: function() {
@@ -120,7 +133,8 @@ $(document).ready(function() {
 
   // More DRY violations
   $('#edit_reminder_link').on('click', function(e) {
-    $('#edit_loader').show();
+    var access_token = $("#SuperSecretAccessToken").text();
+    $('.edit_loader').show();
     // stop the default linking behavior
     e.preventDefault();
     // submit the form
@@ -128,6 +142,7 @@ $(document).ready(function() {
     var sub_data = form.serialize();
     $.ajax({
       url: '/api/v1/reminders/' + clicked_event.id + '/',
+      headers: {'Authorization': access_token},
       type: 'PUT',
       data: sub_data,
       dataType: "JSON",
@@ -135,6 +150,7 @@ $(document).ready(function() {
         // if we succeed do a get request for the new data
         $.ajax({
           url: '/api/v1/reminders/' + clicked_event.id + '/',
+          headers: {'Authorization': access_token},
           type: 'GET',
           success: function(json) {
             // refresh the data for the event
@@ -149,7 +165,7 @@ $(document).ready(function() {
               $('#calendar').fullCalendar('refetchEvents');
             }
             $('#editReminder').modal('hide');
-            $('#edit_loader').hide();
+            $('.edit_loader').hide();
             fetchUpcoming();
           },
           error: function() {
@@ -180,15 +196,17 @@ $(document).ready(function() {
   });
 
   $('#delete_reminder_button').on('click', function(e) {
+    var access_token = $("#SuperSecretAccessToken").text();
     if(!clicked_event.attemptedDelete){
-      $('#delete_reminder_button').attr('class', 'btn btn-danger delete_btn');
+      $('#delete_reminder_button').attr('class', 'btn btn-danger delete_btn')
       $('#delete_reminder_button').text("Confirm Deletion");
       clicked_event.attemptedDelete = true;
     }else{
-      $('#delete_loader').show();
+      $('.delete_loader').show();
       silly_data = $('#edit_reminder_form').serialize();
       $.ajax({
         url: '/api/v1/reminders/' + clicked_event.id + '/',
+        headers: {'Authorization': access_token},
         type: 'DELETE',
         data: silly_data,
         dataType: 'JSON',
@@ -199,7 +217,7 @@ $(document).ready(function() {
           clicked_event = null;
           $('#calendar').fullCalendar('refetchEvents');
           $('#editReminder').modal('hide');
-          $('#delete_loader').hide();
+          $('.delete_loader').hide();
           fetchUpcoming();
         },
         error: function() {
@@ -210,6 +228,7 @@ $(document).ready(function() {
   });
 
   $('#eventSelect').change( function() {
+    var access_token = $("#SuperSecretAccessToken").text();
     var selected = $('#eventSelect').find(':selected').val();
     if(selected === '0'){
       $('#eventForm').empty();
@@ -218,6 +237,7 @@ $(document).ready(function() {
       $('#eventForm').html('<p>Loading Form...</p>');
       $.ajax({
         url: '/api/v1/plugin_descriptors/' + selected + '/',
+        headers: {'Authorization': access_token},
         type: 'GET',
         dataType: 'JSON', 
         success: function(json) {
@@ -249,6 +269,18 @@ $(document).ready(function() {
     selected_plugin_id = 0;
   });
 
+  $('#editEvent').on('hidden', function() {
+    $('#edit_eventForm').empty();
+    $('#edit_pluginDescription p').empty();
+    $('#delete_event_link').off('click');
+    $('#edit_event_link').off('click');
+    var e_id = $('#delete_event_link').attr('data-eid');
+    events[e_id].attemptedDelete = false;
+    $('#delete_event_link').removeAttr('data-eid');
+    $('#delete_event_link').attr('class', 'btn btn-warning delete_btn');
+    $('#delete_event_link').text("Delete Event");
+  });
+
   $('#save_event_link').on('click', function() {
     var form = $('#eventForm');
     var json_dump = {};
@@ -257,6 +289,7 @@ $(document).ready(function() {
     });
     save_json = {'plugin_id': selected_plugin_id, 'configuration': JSON.stringify(json_dump)};
     access_token = $('#SuperSecretAccessToken').text();
+    $('.save_loader').show();
     $.ajax({
       url: '/api/v1/active_events/',
       type: 'POST',
@@ -265,14 +298,18 @@ $(document).ready(function() {
       dataType: 'JSON',
       success: function() {
         $('#newEvent').modal('hide');
+        $('.save_loader').hide();
+        fetchEvents();
       },
       error: function() {
-        console.log("There was a problem registering the event!")
+        $('.save_loader').hide();
+        console.log("There was a problem registering the event!");
       }
     });
   });
 
   fetchUpcoming();
+  fetchEvents();
 });
 
 function applyDeltas(reminder, dayDelta, minuteDelta){
@@ -293,6 +330,7 @@ function fillEditForm(event){
 };
 
 function fetchUpcoming() {
+  var access_token = $("#SuperSecretAccessToken").text();
   // remove all the old table rows, since we're refetching
   $('#upcomingTable').find('tr').remove();
   $('#upcomingTable').append('<tr id="loadingRow"><td>Loading...</td><td><img class="save_loader_img" src="/assets/ajax-loader.gif"></td></tr>');
@@ -301,6 +339,7 @@ function fetchUpcoming() {
   var future = now + 432000; // 60 sec/min * 60 min/hour * 24 hour/day * 5 days = 432,000 seconds
   $.ajax({
     url: '/api/v1/reminders?start=' + Math.floor(now) + '&end=' + Math.floor(future),
+    headers: {'Authorization': access_token},
     type: 'GET',
     success: function(json) {
       $('#loadingRow').remove();
@@ -315,7 +354,7 @@ function fetchUpcoming() {
 }
 
 function fetchEvents(){
-  access_token = $("#SuperSecretAccessToken").text();
+  var access_token = $("#SuperSecretAccessToken").text();
   $('#eventsTable').find('tr').remove();
   $('#eventsTable').append('<tr id="events_loadingRow"><td>Loading...</td><td><img class="save_loader_img" src="/assets/ajax-loader.gif"></td></tr>');
   $.ajax({
@@ -326,11 +365,104 @@ function fetchEvents(){
     success: function(json) {
       $('#events_loadingRow').remove();
       for(var i = 0; i < json.length; i++){
-        $('#eventsTable').append('<tr><td>' + json[i].title + '</td><td><button name=' + json[i].id + ' value="Edit Event" class="btn btn-info">' + '</td></tr>');
+        events[String(json[i].id)] = json[i];
+        events[String(json[i].id)]['attemptedDelete'] = false;
+        $('#eventsTable').append('<tr><td>' + json[i].title + '</td><td><button name="' + json[i].id + '" class="btn btn-info" data-pid="' + json[i].plugin_id + '">Edit Event</button>' + '</td></tr>');
       }
+      $('#eventsTable button').on('click', eventEditHandler);
     },
     error: function() {
       console.log("There was an error loading events in fetchEvent's GET")
     }
   });
+}
+
+function eventEditHandler(ev) {
+  var access_token = $("#SuperSecretAccessToken").text();
+  var p_id = $(this).attr('data-pid');
+  var e_id = $(this).attr('name');
+  $.ajax({
+    url: '/api/v1/plugin_descriptors/' + p_id + '/',
+    headers: {'Authorization': access_token},
+    type: 'GET',
+    dataType: 'JSON',
+    success: function(json) {
+      $('#edit_eventForm').empty();
+      $('#edit_eventForm').html(json.form_html);
+      $('#edit_pluginDescription p').text(json.description);
+      $('#edit_pluginTitle h5').text(json.title);
+      $('#delete_event_link').attr('data-eid', e_id);
+
+      $('#delete_event_link').on('click', deleteEvent);
+      $('#edit_event_link').on('click', saveEventEdit);
+
+      // fill out the form
+      var config = JSON.parse(events[e_id].configuration);
+      for(var key in config) {
+        if(config.hasOwnProperty(key)) {
+          $('#edit_eventForm [name="' + key + '"]').val(config[key]);
+        }
+      }
+
+      selected_plugin_id = json.id;
+      $('#editEvent').modal('show');
+    },
+    error: function() {
+      console.log("There was an error fetching plugins");
+    }
+  });
+}
+
+function saveEventEdit() {
+  var e_id = $('#delete_event_link').attr('data-eid');
+  var form = $('#edit_eventForm');
+  var json_dump = {};
+  form.find('input').each(function(i, val) {
+    json_dump[$(val).attr('name')] = $(val).val();
+  });
+  save_json = {'plugin_id': selected_plugin_id, 'configuration': JSON.stringify(json_dump)};
+  access_token = $('#SuperSecretAccessToken').text();
+  $('.edit_loader').show();
+  $.ajax({
+    url: '/api/v1/active_events/' + e_id + '/',
+    type: 'PUT',
+    headers: {'Authorization': access_token},
+    data: save_json,
+    dataType: 'JSON',
+    success: function() {
+      $('#editEvent').modal('hide');
+      $('.edit_loader').hide();
+      fetchEvents();
+    },
+    error: function() {
+      console.log("There was a problem registering the event!");
+      $('.edit_loader').hide();
+    }
+  });
+}
+
+function deleteEvent() {
+  var access_token = $("#SuperSecretAccessToken").text();
+  var e_id = $('#delete_event_link').attr('data-eid');
+  if(!events[e_id].attemptedDelete){
+    events[e_id].attemptedDelete = true;
+    $('#delete_event_link').attr('class', 'btn btn-danger delete_btn');
+    $('#delete_event_link').text("Confirm Deletion");
+  }else{
+    $('.delete_loader').show();
+    $.ajax({
+      url: '/api/v1/active_events/' + e_id + '/',
+      headers: {'Authorization': access_token},
+      type: 'DELETE',
+      success: function() {
+        $('.delete_loader').hide();
+        $('#editEvent').modal('hide');
+        fetchEvents();
+      },
+      error: function() {
+        console.log("There was an error in deleteEvent's DELETE");
+        $('.delete_loader').hide();
+      }
+    });
+  }
 }

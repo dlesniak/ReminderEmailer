@@ -51,7 +51,7 @@
       = text_area :reminder, :customhtml, :rows => 5
       
   %div{:class => 'modal-footer'}
-    %img{:src => '/assets/ajax-loader.gif', :id => 'new_loader', :class => 'save_loader_img', :style => 'display: none;'}
+    %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img new_loader', :style => 'display: none;'}
     %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary'} Save Reminder
     %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
@@ -77,15 +77,15 @@
       
   %div{:class => 'modal-footer'}
     %a{:href => '#', :id => 'delete_reminder_button', :class => 'btn btn-warning delete_btn'}Delete Reminder
-    %img{:src => '/assets/ajax-loader.gif', :class => 'delete_loader_img', :id => 'delete_loader', :style => 'display: none;'}
-    %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img', :id => 'edit_loader', :style => 'display: none;'}
+    %img{:src => '/assets/ajax-loader.gif', :class => 'delete_loader_img delete_loader', :style => 'display: none;'}
+    %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img edit_loader', :style => 'display: none;'}
     %a{:href => '#', :id => 'edit_reminder_link', :class => 'btn btn-primary'} Save Reminder
     %button{:class => 'btn edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
-%div{:id => 'newEvent', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
+%div{:id => 'newEvent', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Event', :'aria-hidden' => 'true'}
   %div{:class => 'modal-header'}
     %button{:type => 'button', :class => 'close edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
-    %h3{:id => 'New Reminder'} Register for an Event
+    %h3{:id => 'New Event'} Register for an Event
   %div{:class => 'modal-body'}
     %h4 Register for an Event
     %label Choose an Event Type:
@@ -99,7 +99,27 @@
     %div{:id => 'eventFormBox'}
       %form{:id => 'eventForm'}
   %div{:class => 'modal-footer'}
+    %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img save_loader', :style => 'display: none;'}
     %a{:href => '#', :id => 'save_event_link', :class => 'btn btn-primary', :style => 'display: none;'} Register Event
+    %button{:class => 'btn new_event_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
+
+%div{:id => 'editEvent', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'Edit Event', :'aria-hidden' => 'true'}
+  %div{:class => 'modal-header'}
+    %button{:type => 'button', :class => 'close edit_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
+    %h3{:id => 'Edit Event'} Edit an Event
+  %div{:class => 'modal-body'}
+    %div{:id => 'edit_pluginTitle'}
+      %h4 
+    %div{:id => 'edit_pluginDescription'}
+      %h5 Plugin Description
+      %p
+    %div{:id => 'edit_eventFormBox'}
+      %form{:id => 'edit_eventForm'}
+  %div{:class => 'modal-footer'}
+    %a{:href => '#', :id => 'delete_event_link', :class => 'btn btn-warning delete_btn'}Delete Event
+    %img{:src => '/assets/ajax-loader.gif', :class => 'delete_loader_img delete_loader', :style => 'display: none;'}
+    %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img edit_loader', :style => 'display: none;'}
+    %a{:href => '#', :id => 'edit_event_link', :class => 'btn btn-primary'} Save Changes
     %button{:class => 'btn new_event_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
 %div{:id => "SuperSecretAccessToken", :style => 'display: none;'}= @api_key_string

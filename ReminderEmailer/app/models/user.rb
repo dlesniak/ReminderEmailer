@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :groups
 
   def generate_api_key
-    ApiKey.create!(:role => 'User', :User_id => self.id)
+    ApiKey.create!(:role => 'user', :User_id => self.id)
   end
 
 end
