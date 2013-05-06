@@ -1,6 +1,7 @@
 %div{:class => 'row'}
   %div{:class => 'span8'}
     %div{:class => 'well', :id => 'calendar'}
+      %button{:class => 'btn btn-info', :id => 'legendPopup', :'data-toggle' => 'button'} Legend
   %div{:class => 'span4'}
     %div{:class => 'well'}
       %div
@@ -124,3 +125,35 @@
     %button{:class => 'btn new_event_close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
 %div{:id => "SuperSecretAccessToken", :style => 'display: none;'}= @api_key_string
+
+%div{:id => 'legendHTML', :style => 'display: none;'}
+  %table{:class => 'table'}
+    %thead
+      %tr
+        %td Reminder
+        %td Source
+    %tbody
+      %tr
+        %td
+          %div{:class => "fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end ui-draggable", :style => "z-index: 8; background-color: rgb(5, 122, 240); border-color: rgb(115, 115, 115); color: rgb(255, 255, 255); width: 97px;", :unselectable => "on"}
+            %div{:class => "fc-event-inner"}
+              %span{:class => "fc-event-time"}8p
+              %span{:class => "fc-event-title"} Title
+            %div{:class => "ui-resizable-handle ui-resizable-e"}
+        %td Your Reminder
+      %tr
+        %td
+          %div{:class => "fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end ui-draggable", :style => "z-index: 8; background-color: rgb(255, 232, 0); border-color: rgb(115, 115, 115); color: rgb(0, 0, 0); width: 97px;", :unselectable => "on"}
+            %div{:class => "fc-event-inner"}
+              %span{:class => "fc-event-time"}8p
+              %span{:class => "fc-event-title"} Title
+            %div{:class => "ui-resizable-handle ui-resizable-e"}
+        %td Event Reminder
+      %tr
+        %td
+          %div{:class => "fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end ui-draggable", :style => "z-index: 8; background-color: rgb(23, 133, 16); border-color: rgb(115, 115, 115); color: rgb(255, 255, 255); width: 97px;", :unselectable => "on"}
+            %div{:class => "fc-event-inner"}
+              %span{:class => "fc-event-time"}8p
+              %span{:class => "fc-event-title"} Title
+            %div{:class => "ui-resizable-handle ui-resizable-e"}
+        %td Org Reminder

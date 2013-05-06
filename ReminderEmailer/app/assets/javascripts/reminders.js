@@ -314,6 +314,13 @@ $(document).ready(function() {
     });
   });
 
+  $('#legendPopup').popover({
+    title: 'Calendar Legend',
+    content: $('#legendHTML').html(),
+    placement: 'top',
+    html: true
+  });
+
   fetchUpcoming();
   fetchEvents();
 });
@@ -373,7 +380,7 @@ function fetchEvents(){
       for(var i = 0; i < json.length; i++){
         events[String(json[i].id)] = json[i];
         events[String(json[i].id)]['attemptedDelete'] = false;
-        $('#eventsTable').append('<tr><td>' + json[i].title + '</td><td><button name="' + json[i].id + '" class="btn btn-info" data-pid="' + json[i].plugin_id + '">Edit Event</button>' + '</td></tr>');
+        $('#eventsTable').append('<tr><td>' + json[i].title + '</td><td><button name="' + json[i].id + '" class="btn btn-primary" data-pid="' + json[i].plugin_id + '">Edit Event</button>' + '</td></tr>');
       }
       $('#eventsTable button').on('click', eventEditHandler);
     },
