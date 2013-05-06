@@ -1,11 +1,11 @@
 #legendPopup {
   position: relative;
   width: 20%;
-  left: 40%;
+  left: 80%;
   margin-top: 10px;
 }
 .popover-content td {
-  width: 130px;
+  width: 200px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
