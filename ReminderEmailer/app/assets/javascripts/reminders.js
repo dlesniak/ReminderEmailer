@@ -80,11 +80,17 @@ $(document).ready(function() {
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
       if(eventData.source === "event_bot"){
-        transformedData['backgroundColor'] = '#F26531';
+        transformedData['backgroundColor'] = '#FFE800';
+        transformedData['textColor'] = '#000000';
+        transformedData['borderColor'] = '#737373';
+      }else if(eventData.source == "organization"){
+        transformedData['backgroundColor'] = '#178510';
         transformedData['textColor'] = '#FFFFFF';
+        transformedData['borderColor'] = '#737373';
       }else{
         transformedData['backgroundColor'] = '#057af0';
         transformedData['textColor'] = '#FFFFFF';
+        transformedData['borderColor'] = '#737373';
       }
       transformedData['attemptedDelete'] = false;
       return transformedData;

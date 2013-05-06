@@ -349,17 +349,18 @@ table.fc-border-separate {
 	
 .fc-border-separate th,
 .fc-border-separate td {
-	border-width: 1px 0 0 1px;
+	border-width: 1px 0 0 1px; /* This are the borders to change */
+	border-color: #737373;
 	}
 	
 .fc-border-separate th.fc-last,
 .fc-border-separate td.fc-last {
-	border-right-width: 1px;
+	border-right-width: 1px; /* This is the far right bar */
 	}
 	
 .fc-border-separate tr.fc-last th,
 .fc-border-separate tr.fc-last td {
-	border-bottom-width: 1px;
+	border-bottom-width: 1px; /* This is the top bar under the mon tues wed business */
 	}
 	
 .fc-border-separate tbody tr.fc-first td,

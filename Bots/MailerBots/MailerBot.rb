@@ -23,6 +23,7 @@ class MailerBot
     Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |http|
       unixStart = Time.now
       unixEnd = Time.now + 432000 # 5 days in seconds
+      unixEnd = Time.now + 60 # 2 minutes
       request = Net::HTTP::Get.new('/api/v1/reminders?start=' + (unixStart.to_i.to_s) + '&end=' + (unixEnd.to_i.to_s))
       request['Authorization'] = @access_token
 
@@ -96,6 +97,11 @@ ARGV.each do |arg|
 end
 
 mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', site_url, site_port, proxy_url, proxy_port)
-mailerBot.fetchReminders do |reminder|
-  mailerBot.fetchUserAndSendEmail reminder
+while true
+  puts "Fetching and Processing Reminders"
+  mailerBot.fetchReminders do |reminder|
+    mailerBot.fetchUserAndSendEmail reminder
+  end
+  puts "Going to sleep"
+  sleep 30
 end
