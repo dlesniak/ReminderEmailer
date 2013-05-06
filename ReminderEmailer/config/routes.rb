@@ -74,6 +74,7 @@ ReminderEmailer::Application.routes.draw do
       post 'add_admin'
       post 'remove_admin'
       post 'modify_public_private'
+      post 'add_reminder'
     end
   end
 

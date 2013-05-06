@@ -20,16 +20,42 @@
     - if GroupsUser.isAdmin?(@group, @user)
       = link_to 'Edit Members', edit_group_path(@group)
     - if @group_private && GroupsUser.isAdmin?(@group, @user)
-      = button_to 'Make Group Public', modify_public_private_group_path(@group)
+      = button_to 'Make Group Public', modify_public_private_group_path(@group), :class => 'btn'
     - elsif !@group_private && GroupsUser.isAdmin?(@group, @user)
-      = button_to 'Make Group Private', modify_public_private_group_path(@group)
+      = button_to 'Make Group Private', modify_public_private_group_path(@group), :class => 'btn'
+    - if GroupsUser.isAdmin?(@group, @user)
+      %a{:href => '#newReminder', :role => 'button', :class => 'btn', :'data-toggle' => 'modal'} Create a new group Reminder
     - if GroupsUser.inGroup?(@group, @user)
-      = button_to 'Join Group', join_group_path(@group)
+      = button_to 'Join Group', join_group_path(@group), :class => 'btn'
     - if !GroupsUser.inGroup?(@group, @user)
-      = button_to 'Leave Group', delete_user_from_group_path(@group, :user_id => @user.id, :page => 0), :method => :delete
+      = button_to 'Leave Group', delete_user_from_group_path(@group, :user_id => @user.id, :page => 0), :method => :delete, :class => 'btn'
     - if @group.owner_id == @user.id
       = button_to 'Delete', group_path(@group), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger'
-
 %div
   = link_to 'Back to Groups list', groups_path
+
+/ This is the new reminder modal
+%div{:id => 'newReminder', :class => 'modal hide fade', :tabindex => '-1', :role => 'dialog', :'aria-labelledby' => 'New Reminder', :'aria-hidden' => 'true'}
+  %div{:class => 'modal-header'}
+    %button{:type => 'button', :class => 'close', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} x
+    %h3{:id => 'New Reminder'} Create a new Reminder
+  %div{:class => 'modal-body'}
+    = form_tag add_reminder_group_path(@group), :id => 'new_reminder_form', :class => 'modal-form' do
+
+      = label :reminder, :title, 'Reminder Title'
+      = text_field :reminder, 'title'
+
+      = label :reminder, :start, 'Date and Time'
+      = text_field :reminder, :start, :class => 'date_picker_field'
+
+      = label :reminder, :repeat, 'Repeat Interval'
+      = text_field :reminder, :repeat
+
+      = label :reminder, :customhtml, 'Custom Email HTML'
+      = text_area :reminder, :customhtml, :rows => 5
+      
+  %div{:class => 'modal-footer'}
+    %img{:src => '/assets/ajax-loader.gif', :class => 'save_loader_img new_loader', :style => 'display: none;'}
+    %a{:href => '#', :id => 'save_reminder_link', :class => 'btn btn-primary'} Save Reminder
+    %button{:class => 'btn', :'data-dismiss' => 'modal', :'aria-hidden' => 'true'} Close
 
