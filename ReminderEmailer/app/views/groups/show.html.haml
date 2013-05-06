@@ -1,16 +1,17 @@
 -# in app/views/groups/show.html.haml
-%h2 Details about #{@group.name}
+%div{:class => 'well'}
+  %h2 Details about #{@group.name}
 
-%table{:id => 'group_users', :class => 'table'}
-  %thead
-    %tr
-      %th Member Name
-      %th Visit Member Page 
-  %tbody
-    - @group_users.each do |group_user|
+  %table{:id => 'group_users', :class => 'table'}
+    %thead
       %tr
-        %td= group_user.email 
-        %td= link_to "More about #{group_user.email}", user_path(group_user)
+        %th Member Name
+        %th Visit Member Page 
+    %tbody
+      - @group_users.each do |group_user|
+        %tr
+          %td= group_user.email 
+          %td= link_to "More about #{group_user.email}", user_path(group_user)
 
 %div{:class => 'well'}
   %h5 Description

@@ -1,13 +1,14 @@
 -#  This file is app/views/groups/index.html.haml
-%h1 All Users
+%div{:class => 'well'}
+  %h1 All Users
 
-%table{:id => 'users', :class => 'table'}
-  %thead
-    %tr
-      %th User Email
-      %th Visit User Page 
-  %tbody
-    - @users.each do |user|
+  %table{:id => 'users', :class => 'table'}
+    %thead
       %tr
-      %td= user.email
-      %td= link_to "More about #{user.email}", user_path(user)
+        %th User Email
+        %th Visit User Page 
+    %tbody
+      - @users.each do |user|
+        %tr
+        %td= user.email
+        %td= link_to "More about #{user.email}", user_path(user)

@@ -1,8 +1,9 @@
 -# in app/views/groups/show.html.haml
-%h2 Details about #{@user.email}
+%div{:class => 'well'}
+  %h2 Details about #{@user.email}
 
-%ul#details
-  %li
-    Email:
-    = @user.email
+  %ul#details
+    %li
+      Email:
+      = @user.email
 

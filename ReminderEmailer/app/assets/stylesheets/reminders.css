@@ -52,3 +52,7 @@ select {
 #newEventButton {
   margin-top: 0px;
 }
+#groupEditForm textarea {
+  width: 400px;
+  height: 100px;
+}

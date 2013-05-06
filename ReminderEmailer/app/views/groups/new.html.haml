@@ -1,11 +1,12 @@
-%h1 Create New Group
+%div{:class => 'well'}
+  %h1 Create New Group
 
-= form_tag groups_path do
+  = form_tag groups_path do
 
-  = label :group, :name, 'Group Name'
-  = text_field :group, 'name'
+    = label :group, :name, 'Group Name'
+    = text_field :group, 'name'
 
-  = label :group, :description, 'Description'
-  = text_field :group, 'description'
-  %br
-  = submit_tag 'Create Group', {:class => 'btn btn-primary', :id => 'submit'}
+    = label :group, :description, 'Description'
+    = text_field :group, 'description'
+    %br
+    = submit_tag 'Create Group', {:class => 'btn btn-primary', :id => 'submit'}
