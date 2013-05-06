@@ -1,15 +1,16 @@
-%h2 Plugins
-%table{:class => 'table'}
-  %thead
-    %tr
-      %th Plugin Title
-      %th Filename
-      %th 
-  %tbody
-    - @plugins.each do |plugin|
+%div{:class => 'well'}
+  %h2 Plugins
+  %table{:class => 'table'}
+    %thead
       %tr
-        %td= plugin.title
-        %td= plugin.filename
-        %td= link_to "Edit this plugin", plugin_descriptor_path(plugin)
+        %th Plugin Title
+        %th Filename
+        %th 
+    %tbody
+      - @plugins.each do |plugin|
+        %tr
+          %td= plugin.title
+          %td= plugin.filename
+          %td= link_to "Edit this plugin", plugin_descriptor_path(plugin)
 
-= link_to "New Plugin", new_plugin_descriptor_path, {:class => 'btn btn-primary'}
+  = link_to "New Plugin", new_plugin_descriptor_path, {:class => 'btn btn-primary'}
