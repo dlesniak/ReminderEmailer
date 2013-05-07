@@ -15,4 +15,5 @@
 //= require fullcalendar
 //= require timepicker
 //= require reminders
+//= require groups
 //= require bootstrap

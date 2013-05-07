@@ -133,8 +133,8 @@ class GroupsController < ApplicationController
 
   def add_reminder
     @group = Group.find(params[:id])
-    @groups.groups_users.each do |user|
-      key = ApiKey.where(:User_id => user.id).first
+    @group.groups_users.each do |user|
+      key = ApiKey.where(:User_id => user.user_id).first
       @reminder = Reminder.new(params[:reminder])
       @reminder.source = "organization"
       @reminder.api_key_id = key.id
@@ -142,8 +142,11 @@ class GroupsController < ApplicationController
       endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
       endDT += 1.days
       @reminder.end = endDT
+      @reminder.start = @reminder.start.utc
+      @reminder.end = @reminder.end.utc
       @reminder.save
     end
+    redirect_to group_path(@group)
   end
 
 end
