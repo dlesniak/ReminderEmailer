@@ -14,6 +14,10 @@ class Reminder < ActiveRecord::Base
       # I don't think this is how you should actually query across relationships
       start_reminders = start_reminders.where(:api_key_id => key.id)
     end
+    start_reminders.each do |reminder|
+      reminder.start = reminder.start.in_time_zone('Central Time (US & Canada)')
+      reminder.end = reminder.end.in_time_zone('Central Time (US & Canada)')
+    end
     @reminders = start_reminders
   end
 

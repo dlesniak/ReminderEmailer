@@ -21,6 +21,8 @@ module Api
 
       def show
         @reminder = Reminder.find params[:id]
+        @reminder.start = @reminder.start.in_time_zone('Central Time (US & Canada)')
+        @reminder.end = @reminder.end.in_time_zone('Central Time (US & Canada)')
         respond_with @reminder
       end
 
@@ -39,6 +41,8 @@ module Api
         endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
         endDT += 1.days
         @reminder.end = endDT
+        @reminder.start = @reminder.start.utc
+        @reminder.end = @reminder.end.utc
         @reminder.save
         respond_with @reminder
       end
@@ -58,6 +62,8 @@ module Api
         endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
         endDT += 1.days
         @reminder.end = endDT
+        @reminder.start = @reminder.start.utc
+        @reminder.end = @reminder.end.utc
         @reminder.save
         respond_with @reminder
       end

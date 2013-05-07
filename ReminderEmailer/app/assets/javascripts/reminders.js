@@ -76,6 +76,8 @@ $(document).ready(function() {
       transformedData['title'] = eventData.title;
       transformedData['allDay'] = eventData.allDay;
       transformedData['repeat'] = eventData.repeat;
+      //transformedData['start'] = new Date(eventData.start);
+      //transformedData['end'] = new Date(eventData.end);
       transformedData['start'] = eventData.start;
       transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
@@ -357,7 +359,8 @@ function fetchUpcoming() {
     success: function(json) {
       $('#loadingRow').remove();
       for(var i = 0; i < json.length; i++){
-        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
+        //$('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
+        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(json[i].start) + '</td></tr>');
       }
     },
     error: function() {

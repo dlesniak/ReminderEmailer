@@ -22,7 +22,7 @@ ReminderEmailer::Application.configure do
   config.assets.digest = true
 
   # attempt the setting of the time zone
-  config.time_zone = 'Central Time (US & Canada)'
+  # config.time_zone = 'Central Time (US & Canada)'
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
