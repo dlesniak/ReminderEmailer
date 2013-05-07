@@ -49,8 +49,8 @@ $(document).ready(function() {
             headers: {'Authorization': access_token},
             type: 'GET',
             success: function(json) {
-              event.start = json.start;
-              event.end = json.end;
+              event.start = new Date(json.start);
+              event.end = new Date(json.end);
               $('#calendar').fullCalendar('updateEvent', event);
               if(event.repeat > 0){
                 $('#calendar').fullCalendar('refetchEvents');
@@ -77,10 +77,11 @@ $(document).ready(function() {
       transformedData['title'] = eventData.title;
       transformedData['allDay'] = eventData.allDay;
       transformedData['repeat'] = eventData.repeat;
-      //transformedData['start'] = new Date(eventData.start);
-      //transformedData['end'] = new Date(eventData.end);
-      transformedData['start'] = eventData.start;
-      transformedData['end'] = eventData.end;
+      transformedData['start'] = new Date(eventData.start);
+      console.log(transformedData['start']);
+      transformedData['end'] = new Date(eventData.end);
+      //transformedData['start'] = eventData.start;
+      //transformedData['end'] = eventData.end;
       transformedData['customhtml'] = eventData.customhtml;
       if(eventData.source === "event_bot"){
         transformedData['backgroundColor'] = '#FFE800';
@@ -132,6 +133,10 @@ $(document).ready(function() {
         $("#calendar").fullCalendar("refetchEvents");
         $('#newReminder').modal('hide');
         $('.new_loader').hide();
+        $('#reminder_title').val('');
+        $('#reminder_start').val('');
+        $('#reminder_repeat').val('');
+        $('#reminder_customhtml').val('');
         fetchUpcoming();
       },
       error: function() {
@@ -163,8 +168,8 @@ $(document).ready(function() {
           type: 'GET',
           success: function(json) {
             // refresh the data for the event
-            clicked_event.start = json.start;
-            clicked_event.end = json.end;
+            clicked_event.start = new Date(json.start);
+            clicked_event.end = new Date(json.end);
             clicked_event.repeat = json.repeat;
             clicked_event.title = json.title;
             clicked_event.customhtml = json.customhtml;
@@ -223,10 +228,13 @@ $(document).ready(function() {
           // the server responds with a 204, so there's no body
           $('#fullcalendar').fullCalendar('removeEvents', clicked_event.id);
           $('#editReminder').modal('hide');
-          clicked_event = null;
           $('#calendar').fullCalendar('refetchEvents');
           $('#editReminder').modal('hide');
           $('.delete_loader').hide();
+          clicked_event.attemptedDelete = false;
+          $('#delete_reminder_button').attr('class', 'btn btn-warning delete_btn');
+          $('#delete_reminder_button').text("Delete Reminder");
+          clicked_event = null;
           fetchUpcoming();
         },
         error: function() {
@@ -360,9 +368,7 @@ function fetchUpcoming() {
     success: function(json) {
       $('#loadingRow').remove();
       for(var i = 0; i < json.length; i++){
-        //$('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
-        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + iso8601Prettifier(String(json[i].start)) + '</td></tr>');
-        testDT = String(json[i].start);
+        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
       }
     },
     error: function() {

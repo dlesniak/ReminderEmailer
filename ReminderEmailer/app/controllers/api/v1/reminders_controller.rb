@@ -21,13 +21,17 @@ module Api
 
       def show
         @reminder = Reminder.find params[:id]
-        @reminder.start = @reminder.start.in_time_zone('Central Time (US & Canada)')
-        @reminder.end = @reminder.end.in_time_zone('Central Time (US & Canada)')
         respond_with @reminder
       end
 
       def update
         @reminder = Reminder.find params[:id]
+        startTime = params[:edit_reminder][:start].to_datetime
+        endTime = startTime.dup
+        endTime = endTime.change({:hour => 0, :minute => 0, :second => 0})
+        endTime += 1.days
+        params[:edit_reminder][:start] = startTime.utc.to_s
+        params[:edit_reminder][:end] = endTime.utc.to_s
         # this is ugly as hell...
         if @reminder.repeat > 0
           day_diff = params[:edit_reminder][:start].to_datetime.yday - @reminder.start.yday
@@ -37,12 +41,6 @@ module Api
         else
           @reminder.update_attributes!(params[:edit_reminder])  
         end
-        endDT = @reminder.start.dup
-        endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
-        endDT += 1.days
-        @reminder.end = endDT
-        @reminder.start = @reminder.start.utc
-        @reminder.end = @reminder.end.utc
         @reminder.save
         respond_with @reminder
       end
