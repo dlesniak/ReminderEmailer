@@ -2,6 +2,7 @@
 var clicked_event;
 var selected_plugin_id;
 var events = {};
+var testDT;
 
 // Plugin forms don't include the csrf token since thier dynamic. Consider doing this a bit more carefully...
 $(document).ajaxSend(function(e, xhr, options) {
@@ -360,7 +361,8 @@ function fetchUpcoming() {
       $('#loadingRow').remove();
       for(var i = 0; i < json.length; i++){
         //$('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(new Date(json[i].start)) + '</td></tr>');
-        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + String(json[i].start) + '</td></tr>');
+        $('#upcomingTable').append('<tr><td>' + json[i].title + '</td><td>' + iso8601Prettifier(String(json[i].start)) + '</td></tr>');
+        testDT = String(json[i].start);
       }
     },
     error: function() {
@@ -481,4 +483,40 @@ function deleteEvent() {
       }
     });
   }
+}
+
+function iso8601Prettifier(dt) {
+  temp = dt.split('T');
+  d = temp[0];
+  t = temp[1];
+  splitD = d.split('-');
+  if(splitD[1][0] === '0'){
+    splitD[1][0] = splitD[1].substring(1);
+  }
+  if(splitD[2][0] === '0'){
+    splitD[2][0] = splitD[2].substring(1);
+  }
+  date = splitD[1] + '/' + splitD[2] + '/' + splitD[0];
+  time = t.substring(0, 8);
+  offset = t.substring(8);
+  hoff = offset.split(':')
+  hourtz = parseInt(hoff[0]);
+  mintz = parseInt(hoff[1]);
+  hourtz = 0;
+  mintz = 0;
+  if(hourtz < 0){
+    mintz = mintz * -1;
+  }
+  meridien = 'AM';
+  hour = parseInt(time.split(':')[0]) + hourtz;
+  if(hour > 12){
+    hour = hour - 12;
+    meridien = 'PM';
+  }
+  hour = String(hour);
+  min = String(parseInt(time.split(':')[1]) + mintz);
+  if(min.length === 1){
+    min = '0' + min;
+  }
+  return date + ' ' + hour + ':' + min + ' ' + meridien;
 }
