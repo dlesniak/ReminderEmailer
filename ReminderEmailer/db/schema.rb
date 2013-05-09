@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508153452) do
+ActiveRecord::Schema.define(:version => 20130509054231) do
 
   create_table "active_events", :force => true do |t|
     t.integer  "plugin_id"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20130508153452) do
     t.string   "title"
     t.string   "description"
     t.string   "filename"
-    t.string   "form_html"
+    t.text     "form_html"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
