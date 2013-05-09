@@ -78,20 +78,14 @@ class MailerBot
   end
 end
 
-site_url = 'localhost'
-site_port = 3000
-proxy_url = 'localhost'
-proxy_port = 8888
+site_url = 'http://localhost:3000'
+proxy_url = 'http://localhost:8888'
 
 ARGV.each do |arg|
   if /\Asite_url=(?<surl>[\w:\/.\-_]*)\z/ =~ arg
     site_url = surl
-  elsif /\Asite_port=(?<sport>[\d:\/.\-_]*)\z/ =~ arg
-    site_port = sport.to_i
   elsif /\Aproxy_url=(?<purl>[\w:\/.\-_]*)\z/ =~ arg
     proxy_url = purl
-  elsif /\Aproxy_port=(?<pport>[\d:\/.\-_]*)\z/ =~ arg
-    proxy_port = pport.to_i
   end
 end
 

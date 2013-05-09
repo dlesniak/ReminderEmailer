@@ -18,6 +18,8 @@ class Weather
 
       w_json = JSON.parse weather_response.body
 
+      puts "Fetched forecast data"
+
       w_json['hourly_forecast'].each do |forecast|
         if forecast['FCTTIME']['hour'] == json_config['time']
           if forecast['condition'] == 'Thunderstorm' or forecast['condition'] == 'Rain'
@@ -33,6 +35,8 @@ class Weather
         end
       end
     end
+
+    false
   end
 
   def createhtml(forecast)

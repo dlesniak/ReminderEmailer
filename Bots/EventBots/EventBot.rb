@@ -56,8 +56,15 @@ class EventBot
       event_object = event_class.new()
       reminder = event_object.run_handler(event['configuration'])
       # Have to pass back user_id as query string parameter 'uid', ie url?uid=1
-      puts "Set to create a reminder with title: " + reminder[:'reminder[title]']
-      attemptReminderCreate(reminder, event)
+      if reminder
+        puts "Set to create a reminder with title: " + reminder[:'reminder[title]']
+        attemptReminderCreate(reminder, event)
+        if not event['one_off'].nil? and event['one_off']
+          removeEvent event
+        end
+      else
+        puts "Nothing to create"
+      end
     end
   end
 
@@ -98,6 +105,22 @@ class EventBot
     end
   end
 
+  def removeEvent(event)
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+      request = Net::HTTP::Delete.new('/api/v1/active_events/' + event['id'].to_s + '/')
+      request['Authorization'] = @access_token
+
+      response = http.request request
+
+      if response.body == '{"Access Denied"}'
+        puts "Something is wrong with your apikey"
+        exit 1
+      else
+        puts "Deleted event"
+      end
+    end
+  end
+
   def class_from_string(str)
     str.split('::').inject(Object) do |mod, class_name|
       mod.const_get(class_name)
@@ -105,26 +128,19 @@ class EventBot
   end
 end
 
-site_url = 'localhost'
-site_port = 3000
-proxy_url = 'localhost'
-proxy_port = 8888
+site_url = 'http://localhost:3000'
+proxy_url = 'http://localhost:8888'
 
 ARGV.each do |arg|
   if /\Asite_url=(?<surl>[\w:\/.\-_]*)\z/ =~ arg
     site_url = surl
-  elsif /\Asite_port=(?<sport>[\d:\/.\-_]*)\z/ =~ arg
-    site_port = sport.to_i
   elsif /\Aproxy_url=(?<purl>[\w:\/.\-_]*)\z/ =~ arg
     proxy_url = purl
-  elsif /\Aproxy_port=(?<pport>[\d:\/.\-_]*)\z/ =~ arg
-    proxy_port = pport.to_i
   end
 end
 
 uri = URI(site_url)
 proxy_uri = URI(proxy_url)
-proxy_uri.port = proxy_port
 
 eventBot = EventBot.new('801fdd387f88ea1c07ecc17559c81359', uri, proxy_uri)
 eventBot.fetchEvents do |event|
