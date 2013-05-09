@@ -63,6 +63,7 @@ class GroupsController < ApplicationController
     @group = Group.find params[:id]
     @group_users = @group.users
     @users = User.all
+    @current_user = current_user
   end
 
   def join
@@ -85,11 +86,7 @@ class GroupsController < ApplicationController
     if page_number.to_i == 0
       redirect_to group_path(group)
     elsif page_number.to_i == 1
-      if(current_user.id = params[:user_id])
-        redirect_to group_path(group)
-      else
-        redirect_to edit_group_path(group)
-      end
+      redirect_to group_path(group)
     end
   end
 

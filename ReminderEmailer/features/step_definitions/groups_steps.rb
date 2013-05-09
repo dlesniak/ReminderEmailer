@@ -127,6 +127,13 @@ When(/^I remove the user "(.*?)" from the group "(.*?)"$/) do |user, group|
   click_on "Remove " + user
 end
 
+When(/^I add the user "(.*?)" to the group "(.*?)"$/) do |user, group|
+  group_id = Group.where("name = ?", group).first.id
+  visit edit_group_path(group_id)
+  
+  click_on "Add " + user
+end
+
 Given(/^the privacy level of the group "(.*?)" is set to "(.*?)"$/) do |group, privacy_level|
   group_id = Group.where("name = ?", group).first.id  
   entry = Group.find(group_id)
@@ -186,7 +193,6 @@ Then(/^I should see a button to add admin status in the entry for "(.*?)" of the
    end  
    assert result
 end
-
 
 
 
