@@ -154,6 +154,7 @@ $(document).ready(function() {
     // submit the form
     var form = $('#edit_reminder_form');
     var sub_data = form.serialize();
+    var repeat_int = clicked_event.repeat;
     $.ajax({
       url: '/api/v1/reminders/' + clicked_event.id + '/',
       headers: {'Authorization': access_token},
@@ -175,7 +176,7 @@ $(document).ready(function() {
             clicked_event.customhtml = json.customhtml;
             //clicked_event.repeat = sub_data.repeat;
             $('#calendar').fullCalendar('updateEvent', clicked_event);
-            if(json.repeat > 0){
+            if(repeat_int > 0){
               $('#calendar').fullCalendar('refetchEvents');
             }
             $('#editReminder').modal('hide');
