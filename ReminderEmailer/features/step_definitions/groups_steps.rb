@@ -61,6 +61,16 @@ Given(/^I am logged in as "(.*?)" who is an admin of the group "(.*?)"$/) do |us
   entry.save
 end
 
+Given(/^I am logged in as "(.*?)" who is an admin and owner of the group "(.*?)"$/) do |user, group|
+  userEntry = User.where("email = ?", user).first
+  groupEntry = Group.where("name = ?", group).first
+  groupEntry.owner_id = userEntry.id
+  groupEntry.save
+  entry = GroupsUser.where("group_id = ? AND user_id = ?", groupEntry.id, userEntry.id).first 
+  entry.admin = true
+  entry.save
+end
+
 When(/^I have deleted the group "(.*?)"$/) do |group|
   group_id = Group.where("name = ?", group).first.id
   visit group_path(group_id)
@@ -117,6 +127,13 @@ When(/^I remove the user "(.*?)" from the group "(.*?)"$/) do |user, group|
   click_on "Remove " + user
 end
 
+When(/^I add the user "(.*?)" to the group "(.*?)"$/) do |user, group|
+  group_id = Group.where("name = ?", group).first.id
+  visit edit_group_path(group_id)
+  
+  click_on "Add " + user
+end
+
 Given(/^the privacy level of the group "(.*?)" is set to "(.*?)"$/) do |group, privacy_level|
   group_id = Group.where("name = ?", group).first.id  
   entry = Group.find(group_id)
@@ -144,7 +161,7 @@ When(/^I have added the user "(.*?)" as an admin of the group "(.*?)"$/) do |use
   group_id = Group.where("name = ?", group).first.id 
   visit edit_group_path(group_id)
   #print page.html  
-  click_button user+"id"
+  click_button user
 end
 
 Then(/^I should see a button to remove admin status in the entry for "(.*?)" of the group "(.*?)"$/) do |user, group|
@@ -162,7 +179,7 @@ When(/^I have removed the user "(.*?)" as an admin of the group "(.*?)"$/) do |u
   group_id = Group.where("name = ?", group).first.id 
   visit edit_group_path(group_id)
   #print page.html  
-  click_button user+"id"
+  click_button user
 end
 
 Then(/^I should see a button to add admin status in the entry for "(.*?)" of the group "(.*?)"$/) do |user, group|
@@ -176,7 +193,6 @@ Then(/^I should see a button to add admin status in the entry for "(.*?)" of the
    end  
    assert result
 end
-
 
 
 

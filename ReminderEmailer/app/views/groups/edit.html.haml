@@ -15,12 +15,16 @@
           %td= user.email 
           - if @group.owner_id == user.id
             %td Owner
-          - elsif @group_users.exists?(user)
+          - elsif @group_users.exists?(user) && (user != @current_user)
             %td= button_to "Remove #{user.email}", delete_user_from_group_path(@group, :user_id => user, :page => 1), :method => :delete, :class => 'btn btn-danger'
+          - elsif @group_users.exists?(user) && (user == @current_user)
+            %td You
           - else
             %td= button_to "Add #{user.email}", add_user_to_group_path(@group, :user_id => user), :class => 'btn btn-success'
           - if @group.owner_id == user.id
             %td Owner
+          - elsif user == @current_user
+            %td You
           - elsif !GroupsUser.isAdmin?(@group, user)
             %td= button_to "Make Admin",  add_admin_group_path(@group, :user_id => user), :id => user.email, :class => 'btn btn-success'
           - else
