@@ -11,16 +11,15 @@ rescue LoadError => e
 end
 
 class EventBot
-  def initialize(access_token, site_url, site_port, proxy_url, proxy_port)
+  def initialize(access_token, uri, proxy_uri)
     @access_token = access_token
-    @site_url = site_url
-    @site_port = site_port
-    @proxy_url = proxy_url
-    @proxy_port = proxy_port
+    @uri = uri
+    @proxy_uri = proxy_uri
   end
 
   def fetchEvents
-    Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |http|
+    # :use_ssl => uri.scheme == 'https'
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
       request = Net::HTTP::Get.new('/api/v1/active_events/')
       request['Authorization'] = @access_token
 
@@ -40,7 +39,7 @@ class EventBot
   end
 
   def fetchAndRunPlugin(event)
-    Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |plugin_http|
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |plugin_http|
       plugin_request = Net::HTTP::Get.new('/api/v1/plugin_descriptors/' + event['plugin_id'].to_s + '/')
       plugin_request['Authorization'] = @access_token
 
@@ -52,9 +51,50 @@ class EventBot
 
       require plugin_desc['filename']
       className = plugin_desc['filename'].sub('.rb', '').capitalize
+      puts "About to load plugin: " + className
       event_class = class_from_string className
-      event_object = event_class.new(event['user_id'])
-      event_object.run_handler(event['configuration'], @access_token)
+      event_object = event_class.new()
+      reminder = event_object.run_handler(event['configuration'])
+      # Have to pass back user_id as query string parameter 'uid', ie url?uid=1
+      puts "Set to create a reminder with title: " + reminder[:'reminder[title]']
+      attemptReminderCreate(reminder, event)
+    end
+  end
+
+  def attemptReminderCreate(new_reminder, event)
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+      post_request = Net::HTTP::Post.new('/api/v1/reminders?uid=' + event['user_id'].to_s)
+      post_request['Authorization'] = @access_token
+      post_request.set_form_data(new_reminder)
+
+      if not reminderExists? new_reminder
+        response = http.request post_request
+        json_response = JSON.parse response.body
+        puts "Created the reminder"
+      else
+        puts "A reminder already existed there, not creating..."
+      end
+    end
+  end
+
+  def reminderExists?(new_reminder)
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+      # Check within a 2 minute window of the requested new reminder to see if one has already been created there
+      unixStart = new_reminder[:'reminder[start]'] - 60
+      unixEnd = new_reminder[:'reminder[start]'] + 60
+      request = Net::HTTP::Get.new('/api/v1/reminders?start=' + (unixStart.to_i.to_s) + '&end=' + (unixEnd.to_i.to_s))
+      request['Authorization'] = @access_token
+
+      response = http.request request
+
+      json_response = JSON.parse response.body
+
+      json_response.each do |reminder|
+        if reminder['title'] == new_reminder[:'reminder[title]']
+          return true
+        end
+      end
+      return false
     end
   end
 
@@ -82,7 +122,11 @@ ARGV.each do |arg|
   end
 end
 
-eventBot = EventBot.new('b819b563b60b5d7addd51fe2174260c6', site_url, site_port, proxy_url, proxy_port)
+uri = URI(site_url)
+proxy_uri = URI(proxy_url)
+proxy_uri.port = proxy_port
+
+eventBot = EventBot.new('801fdd387f88ea1c07ecc17559c81359', uri, proxy_uri)
 eventBot.fetchEvents do |event|
-  eventBot.fetchAndRunPlugin(event)
+  eventBot.fetchAndRunPlugin event
 end

@@ -1,19 +1,20 @@
-%h2 API Keys
-%table{:class => 'table'}
-  %thead
-    %tr
-      %th Role
-      %th API key
-  %tbody
-    - @keys.each do |key|
+%div{:class => 'well'}
+  %h2 API Keys
+  %table{:class => 'table'}
+    %thead
       %tr
-        %td= key.role
-        %td= key.access_token
-        - if key.role == 'mailer' || key.role == 'event_bot'
-          %td
-            = link_to 'Delete Key', api_key_path(key.id), :method => 'delete', :class => 'btn btn-danger'
-        - else
-          %td 
+        %th Role
+        %th API key
+    %tbody
+      - @keys.each do |key|
+        %tr
+          %td= key.role
+          %td= key.access_token
+          - if key.role == 'mailer' || key.role == 'event_bot'
+            %td
+              = link_to 'Delete Key', api_key_path(key.id), :method => 'delete', :class => 'btn btn-danger'
+          - else
+            %td 
 
 = link_to 'New Bot Key', new_api_key_path, :class => 'btn btn-primary'
 = link_to 'New Event Bot Key', '/api_keys/new_event_bot/', :class => 'btn btn-primary'

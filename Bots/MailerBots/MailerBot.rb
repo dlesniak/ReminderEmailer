@@ -11,18 +11,17 @@ rescue LoadError => e
 end
 
 class MailerBot
-  def initialize(access_token, site_url, site_port, proxy_url, proxy_port)
+  def initialize(access_token, uri, proxy_uri)
     @access_token = access_token
-    @site_url = site_url
-    @site_port = site_port
-    @proxy_url = proxy_url
-    @proxy_port = proxy_port
+    @uri = uri
+    @proxy_uri = proxy_uri
   end
 
   def fetchReminders
-    Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |http|
+    #Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port, :use_ssl => true) do |http|
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
       unixStart = Time.now
-      unixEnd = Time.now + 432000 # 5 days in seconds
+      # unixEnd = Time.now + 432000 # 5 days in seconds
       unixEnd = Time.now + 60 # 2 minutes
       request = Net::HTTP::Get.new('/api/v1/reminders?start=' + (unixStart.to_i.to_s) + '&end=' + (unixEnd.to_i.to_s))
       request['Authorization'] = @access_token
@@ -44,7 +43,7 @@ class MailerBot
 
   def fetchUserAndSendEmail(reminder)
     key_id = reminder['api_key_id']
-    Net::HTTP.start(@site_url, @site_port, @proxy_url, @proxy_port) do |user_http|
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |user_http|
       user_request = Net::HTTP::Get.new('/api/v1/users/key/' + key_id.to_s + '/')
       user_request['Authorization'] = @access_token
 
@@ -96,7 +95,11 @@ ARGV.each do |arg|
   end
 end
 
-mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', site_url, site_port, proxy_url, proxy_port)
+uri = URI(site_url)
+proxy_uri = URI(proxy_url)
+
+# mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', uri, site_url, site_port, proxy_url, proxy_port)
+mailerBot = MailerBot.new('042dc624031cd6c39c11f42d75e0c6aa', uri, proxy_uri)
 while true
   puts "Fetching and Processing Reminders"
   mailerBot.fetchReminders do |reminder|
