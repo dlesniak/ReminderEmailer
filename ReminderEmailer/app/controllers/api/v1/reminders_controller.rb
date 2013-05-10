@@ -54,14 +54,14 @@ module Api
           key = ApiKey.where(:User_id => current_user.id).first
           params[:reminder][:source] = 'user'
         end
+        startTime = params[:reminder][:start].to_datetime
+        endTime = startTime.dup
+        endTime = endTime.change({:hour => 0, :minute => 0, :second => 0})
+        endTime += 1.days
+        params[:reminder][:start] = startTime.utc.to_s
+        params[:reminder][:end] = endTime.utc.to_s
         @reminder = Reminder.new(params[:reminder])
         @reminder.api_key_id = key.id
-        endDT = @reminder.start.dup
-        endDT = endDT.change({:hour => 0, :minute => 0, :second => 0})
-        endDT += 1.days
-        @reminder.end = endDT
-        @reminder.start = @reminder.start.utc
-        @reminder.end = @reminder.end.utc
         @reminder.save
         respond_with @reminder
       end

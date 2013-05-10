@@ -18,7 +18,7 @@ $(document).ready(function() {
       {
         url: '/api/v1/reminders',
         type: 'GET',
-        //cache: true,
+        cache: true,
         error: function() {
           console.log("There was an error loading events in the first place");
         }
@@ -105,12 +105,12 @@ $(document).ready(function() {
     timeFormat: 'HH:mm:ss z',
     useLocalTimezone: true,
     showTimezone: true,
-    timezone: 'CDT',
+    timezone: 'GMT-0500 (Central Daylight Time)',
     timezoneList: [ 
-                    { value: 'EST', label: 'Eastern'}, 
-                    { value: 'CDT', label: 'Central' }, 
-                    { value: 'MST', label: 'Mountain' }, 
-                    { value: 'PST', label: 'Pacific' } 
+                    { value: 'GMT-0400 (Eastern Daylight Time)', label: 'Eastern'}, 
+                    { value: 'GMT-0500 (Central Daylight Time)', label: 'Central' }, 
+                    { value: 'GMT-0600 (Mountain Daylight Time)', label: 'Mountain' }, 
+                    { value: 'GMT-0700 (Pacific Daylight Time)', label: 'Pacific' } 
                   ]
   });
 
@@ -335,7 +335,15 @@ $(document).ready(function() {
 
   fetchUpcoming();
   fetchEvents();
+
+  window.setInterval(refetchAll, (1000 * 60 * 10)); // refetch events automatically every 10 minutes
 });
+
+function refetchAll(){
+  $('#calendar').fullCalendar('refetchEvents');
+  fetchUpcoming();
+  fetchEvents();
+}
 
 function applyDeltas(reminder, dayDelta, minuteDelta){
   var deltaApplied = reminder;

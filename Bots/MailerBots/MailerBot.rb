@@ -92,8 +92,8 @@ end
 uri = URI(site_url)
 proxy_uri = URI(proxy_url)
 
-# mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', uri, site_url, site_port, proxy_url, proxy_port)
-mailerBot = MailerBot.new('042dc624031cd6c39c11f42d75e0c6aa', uri, proxy_uri)
+mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', uri, proxy_uri)
+# mailerBot = MailerBot.new('042dc624031cd6c39c11f42d75e0c6aa', uri, proxy_uri)
 while true
   puts "Fetching and Processing Reminders"
   mailerBot.fetchReminders do |reminder|
