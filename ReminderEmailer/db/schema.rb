@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509054231) do
+ActiveRecord::Schema.define(:version => 20130511015057) do
 
   create_table "active_events", :force => true do |t|
     t.integer  "plugin_id"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20130509054231) do
 
   create_table "plugin_descriptors", :force => true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.string   "filename"
     t.text     "form_html"
     t.datetime "created_at",  :null => false

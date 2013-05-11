@@ -63,7 +63,7 @@ class MailerBot
           content_type 'text/html; charset=UTF-8'
           body %{
             <h3>#{reminder['title']} is coming up!</h3>
-            <p>You scheduled a reminder for #{reminder['title']} at #{datetime_string}. Don't forget about it!</p>
+            <p>You scheduled a reminder for #{reminder['title']} at #{datetime_string} UTC. Don't forget about it!</p>
             <div>
               #{reminder['customhtml']}
             </div>
