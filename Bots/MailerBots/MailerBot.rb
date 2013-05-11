@@ -95,9 +95,13 @@ proxy_uri = URI(proxy_url)
 # mailerBot = MailerBot.new('b819b563b60b5d7addd51fe2174260c6', uri, proxy_uri)
 mailerBot = MailerBot.new('042dc624031cd6c39c11f42d75e0c6aa', uri, proxy_uri)
 while true
-  puts "Fetching and Processing Reminders"
-  mailerBot.fetchReminders do |reminder|
-    mailerBot.fetchUserAndSendEmail reminder
+  begin
+    puts "Fetching and Processing Reminders"
+    mailerBot.fetchReminders do |reminder|
+      mailerBot.fetchUserAndSendEmail reminder
+    end
+  rescue SystemCallError
+    puts "An Exception was raised, probably due to a lack of internet connection. Ignoring and coming back again"
   end
   puts "Going to sleep"
   sleep 30

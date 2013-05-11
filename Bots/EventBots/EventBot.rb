@@ -147,9 +147,13 @@ proxy_uri = URI(proxy_url)
 # eventBot = EventBot.new('801fdd387f88ea1c07ecc17559c81359', uri, proxy_uri)
 eventBot = EventBot.new('5cae4521fb27bb174895cae66179c858', uri, proxy_uri)
 while true
-  puts "Fetching and Processing Events"
-  eventBot.fetchEvents do |event|
-    eventBot.fetchAndRunPlugin event
+  begin
+    puts "Fetching and Processing Events"
+    eventBot.fetchEvents do |event|
+      eventBot.fetchAndRunPlugin event
+    end
+  rescue SystemCallError
+    puts "An Exception was raised, probably due to a lack of internet connection. Ignoring and coming back again"
   end
   puts "Going to sleep"
   sleep (60 * 15) # sleep for 15 minutes

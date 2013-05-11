@@ -1,0 +1,979 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"start",
+				"start_reminders"
+			],
+			[
+				"user",
+				"user_signed_in"
+			],
+			[
+				"fetch",
+				"fetchEvents"
+			],
+			[
+				"delet",
+				"deleteEvent"
+			],
+			[
+				"fe",
+				"fetchEvent"
+			],
+			[
+				"plugin",
+				"plugin_id"
+			],
+			[
+				"bot",
+				"bot_key"
+			],
+			[
+				"new",
+				"new_event"
+			],
+			[
+				"sele",
+				"selected_plugin_id"
+			],
+			[
+				"sel",
+				"selected_plugin_id"
+			],
+			[
+				"plug",
+				"plugin_descriptors"
+			],
+			[
+				"json",
+				"json_dump"
+			],
+			[
+				"respond",
+				"respond_with"
+			],
+			[
+				"k",
+				"k_id"
+			],
+			[
+				"refetch",
+				"refetchEvents"
+			],
+			[
+				"day",
+				"day_diff"
+			],
+			[
+				"repeate",
+				"repeated_reminder"
+			],
+			[
+				"end",
+				"endDT"
+			],
+			[
+				"repate",
+				"repeater"
+			],
+			[
+				"repeat",
+				"repeated_reminder"
+			],
+			[
+				"api_k",
+				"api_key_id"
+			],
+			[
+				"acce",
+				"access_token"
+			],
+			[
+				"edit_remi",
+				"edit_reminder"
+			],
+			[
+				"nam",
+				"namespace"
+			],
+			[
+				"point",
+				"pointMasses"
+			],
+			[
+				"poin",
+				"pointMasses"
+			],
+			[
+				"cont",
+				"constraintAccuracy"
+			],
+			[
+				"const",
+				"constraintAccuracy"
+			],
+			[
+				"time",
+				"timeStepAmt"
+			],
+			[
+				"nex",
+				"nextX"
+			],
+			[
+				"dt",
+				"dTSquared"
+			],
+			[
+				"clicke",
+				"clicked_event"
+			],
+			[
+				"update",
+				"updateEvent"
+			],
+			[
+				"serialize",
+				"serializeReminder"
+			],
+			[
+				"edit_reminder",
+				"edit_reminder_form"
+			],
+			[
+				"sub",
+				"sub_data"
+			],
+			[
+				"click",
+				"clicked_event"
+			],
+			[
+				"sta",
+				"start_reminders"
+			],
+			[
+				"star",
+				"start_datetime"
+			],
+			[
+				"cur",
+				"curEdge"
+			],
+			[
+				"en",
+				"entities"
+			],
+			[
+				"draw",
+				"drawOffset"
+			],
+			[
+				"stro",
+				"strokeStyle"
+			],
+			[
+				"off",
+				"offY"
+			],
+			[
+				"line",
+				"lineTo"
+			],
+			[
+				"be",
+				"beginPath"
+			],
+			[
+				"norm",
+				"normalUnitVector"
+			],
+			[
+				"x",
+				"xsq"
+			],
+			[
+				"ne",
+				"neighbors"
+			],
+			[
+				"get",
+				"getContext"
+			],
+			[
+				"Htt",
+				"Http404"
+			],
+			[
+				"has",
+				"has_content"
+			],
+			[
+				"rei",
+				"redirect_hash"
+			],
+			[
+				"redi",
+				"redirect_sort"
+			],
+			[
+				"redire",
+				"redirect_ratings"
+			],
+			[
+				"redir",
+				"redirect_ratings"
+			],
+			[
+				"movi",
+				"movies_path"
+			],
+			[
+				"rad",
+				"radio_node"
+			],
+			[
+				"radio",
+				"radio_nodes"
+			],
+			[
+				"STATIC",
+				"STATIC_URL"
+			],
+			[
+				"save",
+				"save_path"
+			],
+			[
+				"Http",
+				"HttpResponseRedirect"
+			],
+			[
+				"http",
+				"HttpResponseRedirect"
+			],
+			[
+				"cell",
+				"cell_node"
+			],
+			[
+				"Radio",
+				"RadioNode"
+			],
+			[
+				"y",
+				"y_max"
+			],
+			[
+				"all",
+				"all_data"
+			],
+			[
+				"long",
+				"longitude"
+			],
+			[
+				"render",
+				"render_radio_table"
+			],
+			[
+				"Table",
+				"TableData"
+			],
+			[
+				"is",
+				"is_authenticated"
+			],
+			[
+				"class",
+				"class_eval"
+			],
+			[
+				"attr",
+				"attr_name"
+			],
+			[
+				"error",
+				"error_text"
+			],
+			[
+				"spli",
+				"split_data"
+			],
+			[
+				"read",
+				"reading_data"
+			],
+			[
+				"HttpRe",
+				"HttpResponseRedirect"
+			],
+			[
+				"blog",
+				"blog_id"
+			],
+			[
+				"recen",
+				"recentPosts"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "ReminderEmailer/app/controllers/api/v1/reminders_controller.rb",
+			"settings":
+			{
+				"buffer_size": 3232,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ReminderEmailer/app/assets/javascripts/reminders.js",
+			"settings":
+			{
+				"buffer_size": 17707,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/WaterLevels/ajax.py",
+			"settings":
+			{
+				"buffer_size": 2394,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Bots/MailerBots/MailerBot.rb",
+			"settings":
+			{
+				"buffer_size": 3331,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ReminderEmailer/db/migrate/20130509053716_change_form_html_to_text.rb",
+			"settings":
+			{
+				"buffer_size": 221,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Bots/EventBots/EventBot.rb",
+			"settings":
+			{
+				"buffer_size": 5078,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Eric/Dropbox/SELT/ExtraInfo.txt",
+			"settings":
+			{
+				"buffer_size": 444,
+				"line_ending": "Windows",
+				"name": "If you'd like to run any of the scripts yourself,"
+			}
+		},
+		{
+			"file": "ReminderEmailer/app/models/reminder.rb",
+			"settings":
+			{
+				"buffer_size": 2519,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ReminderEmailer/config/application.rb",
+			"settings":
+			{
+				"buffer_size": 2828,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "ReminderEmailer/config/environments/production.rb",
+			"settings":
+			{
+				"buffer_size": 2583,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/schema.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/migrate/20130511015057_change_plugin_description_to_text.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/plugin_descriptors/show.html.haml",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/plugin_descriptors/edit.html.haml",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/plugin_descriptors/new.html.haml",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/plugin_descriptors/index.html.haml",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/EventBots/Plugins/spotify.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/EventBots/Plugins/weather.rb",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/WaterLevels/command_response.py",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/WaterLevels/post_response.py",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/WaterLevels/views.py",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/potentialInsert.html",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/testPOST.txt",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/POST template.txt",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/devise/confirmations/new.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/devise/sessions/new.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/devise/registrations/edit.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/devise/registrations/new.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/devise/passwords/new.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/devise/passwords/edit.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/models/reminder.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/javascripts/reminders.js",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/layouts/application.html.erb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/environments/production.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/reminders/index.html.haml",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/api/v1/active_events_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/routes.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/models/active_event.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/api/v1/plugin_descriptors_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/EventBots/EventBot.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/MailerBots/TestEmail.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/api/v1/reminders_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/application.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/environments/development.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/environments/test.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/boot.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/config/environment.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/reminders_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/EventBots/testbot.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/EventBots/Plugins/test.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/models/user.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/api/v1/users_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/models/api_key.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/users_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/Plugin Ideas.txt",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/stylesheets/reminders.css.scss",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/views/api_keys/index.html.haml",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/models/plugin_descriptor.rb",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/SeniorDesign/templates/RadioNodePage.html",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/MailerBots/mailer.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/stylesheets/fullcalendar.css",
+		"/C/Users/Eric/Desktop/HerokuURL.txt",
+		"/C/Users/Eric/Desktop/ProjectSummary.txt",
+		"/C/Users/Eric/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Eric/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Eric/Downloads/HerokuURL.txt",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/stylesheets/application.css",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/stylesheets/fullcalendar.print.css",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/models/group.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/seeds.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/Bots/email info.txt",
+		"/C/Users/Eric/Documents/GitHub/HW3/app/models/movie.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/migrate/20130317224502_devise_create_users.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/controllers/groups_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/migrate/20130421011655_add_api_key_to_reminders.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/migrate/20130421010905_remove_user_id_from_reminders.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/db/migrate/20130418051910_create_api_keys.rb",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/templates/Experiments.html",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/templates/VerletExperiments.html",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/urls.py",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/views.py",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/static/js/verlet.js",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/static/js/traffic.js",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/templates/BootstrapSources.html",
+		"/G/RevP/images_config_2.txt",
+		"/C/Users/Eric/Dropbox/Networking/ChatServer/Instructions.txt",
+		"/C/Users/Eric/Documents/GitHub/HW3/app/controllers/movies_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/stylesheets/bootstrap.css",
+		"/C/Users/Eric/Documents/GitHub/HW3/spec/controllers/movies_controller_spec.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/spec/controllers/reminders_controller_spec.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/spec/models/reminders_spec.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/app/views/movies/edit.html.haml",
+		"/C/Users/Eric/Documents/GitHub/HW2/app/models/movie.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/spec/models/movies_spec.rb",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/features/AddReminder.feature",
+		"/C/Users/Eric/Documents/GitHub/HW3/features/AddMovie.feature",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/templates/HomePage.html",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/javascripts/fullcalendar.js",
+		"/C/Users/Eric/Documents/GitHub/ReminderEmailer/ReminderEmailer/app/assets/javascripts/gcal.js",
+		"/C/Users/Eric/Documents/GitHub/HW3/db/seeds.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/app/views/movies/show.html.haml",
+		"/C/Users/Eric/Documents/GitHub/HW3/config/routes.rb",
+		"/C/Users/Eric/Dropbox/Networking/telnet.py",
+		"/C/Users/Eric/Documents/Temp Work/RevP/Images/Images/bin/Debug/images_config_2.txt",
+		"/C/Users/Eric/Documents/Temp Work/Folder2/20120919154402/PedalEvent.txt",
+		"/C/Users/Eric/Documents/Temp Work/Folder2/20120919154402/Fast_Pedal.txt",
+		"/C/Users/Eric/Documents/Temp Work/Folder2/20120919154402/CAN20120919154402.txt",
+		"/C/Program Files (x86)/Steam/steamapps/common/saints row the third/Readme_SaintsRowTheThird_EN.txt",
+		"/C/Users/Eric/Dropbox/Networking/Wireshark Homework/Answers.txt",
+		"/C/Users/Eric/Documents/GitHub/PersonalWebsite/PersonalWebsite/PersonalWebsite/templates/NavBar.html",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/SeniorDesign/templates/BootstrapSources.html",
+		"/C/Users/Eric/Downloads/Modem code.txt",
+		"/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/test.html",
+		"/C/Users/Eric/Documents/GitHub/HW3/features/step_definitions/movie_steps.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/features/filter_movie_list.feature",
+		"/C/Users/Eric/AppData/Local/Temp/Rar$DIa0.829/sort_movie_list.feature",
+		"/C/Users/Eric/AppData/Local/Temp/Rar$DIa0.316/filter_movie_list.feature",
+		"/C/Users/Eric/AppData/Local/Temp/Rar$DIa0.577/movie_steps.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/app/views/movies/index.html.haml",
+		"/C/Users/Eric/Documents/GitHub/HW3/features/sort_movie_list.feature",
+		"/C/Users/Eric/Documents/GitHub/HW3/features/EditMovie.feature",
+		"/C/Users/Eric/AppData/Local/Temp/Rar$DIa0.007/sort_movie_list.feature",
+		"/C/Users/Eric/AppData/Local/Temp/Rar$DIa0.584/filter_movie_list.feature",
+		"/C/Users/Eric/AppData/Local/Temp/Rar$DIa0.729/movie_steps.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/tmp/web_steps.rb",
+		"/C/Users/Eric/Dropbox/SELT/HW1/part5.rb",
+		"/C/Users/Eric/Dropbox/SELT/HW1/part4.rb",
+		"/C/Users/Eric/Dropbox/SELT/HW1/part3.rb",
+		"/C/Users/Eric/Dropbox/SELT/HW1/part2.rb",
+		"/C/Users/Eric/Dropbox/SELT/HW1/part1.rb",
+		"/C/Users/Eric/Documents/GitHub/HW3/app/controllers/application_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/HW2/app/controllers/movies_controller.rb",
+		"/C/Users/Eric/Documents/GitHub/HW2/app/helpers/movies_helper.rb",
+		"/C/Users/Eric/Documents/GitHub/HW2/app/views/movies/index.html.haml",
+		"/C/Users/Eric/Documents/Temp Work/Folder2/20120919154402/GPS20120919154402.txt",
+		"/C/Users/Eric/Documents/GitHub/HW2/config/routes.rb",
+		"/C/Users/Eric/Dropbox/Account Information.txt",
+		"/C/Users/Eric/Dropbox/HPCA/DSouth/filesForPart3/README.txt"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"[<>]",
+			"<>",
+			"new_loader",
+			"edit_loader",
+			"delete_loader",
+			"btn btn-danger",
+			"String",
+			"edit_reminder",
+			"modal",
+			";\n",
+			"} ",
+			";\n",
+			"hide",
+			"end",
+			"serializeReminder",
+			",",
+			":",
+			"new Array()",
+			"select",
+			"checkRegistration",
+			"td",
+			"keys",
+			" @",
+			"rating",
+			" \"/",
+			"TableData",
+			"login",
+			"/static/",
+			"assets",
+			"replace",
+			"assets"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"|",
+			";",
+			" =",
+			"=",
+			"[]",
+			"",
+			"{{ STATIC_URL }}/static",
+			"static",
+			"replace"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 9,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "ReminderEmailer/app/controllers/api/v1/reminders_controller.rb",
+					"settings":
+					{
+						"buffer_size": 3232,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ReminderEmailer/app/assets/javascripts/reminders.js",
+					"settings":
+					{
+						"buffer_size": 17707,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 546.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Eric/Dropbox/Senior Design Test/SeniorDesign/WaterLevels/ajax.py",
+					"settings":
+					{
+						"buffer_size": 2394,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2309,
+								2309
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Bots/MailerBots/MailerBot.rb",
+					"settings":
+					{
+						"buffer_size": 3331,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2253,
+								2253
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 450.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "ReminderEmailer/db/migrate/20130509053716_change_form_html_to_text.rb",
+					"settings":
+					{
+						"buffer_size": 221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								221,
+								221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Bots/EventBots/EventBot.rb",
+					"settings":
+					{
+						"buffer_size": 5078,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4297,
+								4297
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1590.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Users/Eric/Dropbox/SELT/ExtraInfo.txt",
+					"settings":
+					{
+						"buffer_size": 444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								444,
+								444
+							]
+						],
+						"settings":
+						{
+							"auto_name": "If you'd like to run any of the scripts yourself,",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "ReminderEmailer/app/models/reminder.rb",
+					"settings":
+					{
+						"buffer_size": 2519,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "ReminderEmailer/config/application.rb",
+					"settings":
+					{
+						"buffer_size": 2828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1393,
+								1393
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "ReminderEmailer/config/environments/production.rb",
+					"settings":
+					{
+						"buffer_size": 2583,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1066,
+								1066
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 25.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
