@@ -9,7 +9,7 @@ class Weather
   end
 
   def run_handler(config)    
-    Net::HTTP.start(@uri.host, @uri.port, 'localhost', 8888) do |http|
+    Net::HTTP.start(@uri.host, @uri.port) do |http|
       weather_request = Net::HTTP::Get.new('/api/' + @wu_key + '/hourly/q/' + config['state'] + '/' + config['city'] + '.json')
 
       weather_response = http.request weather_request

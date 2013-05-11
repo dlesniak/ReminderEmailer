@@ -19,7 +19,7 @@ class EventBot
 
   def fetchEvents
     # :use_ssl => uri.scheme == 'https'
-    Net::HTTP.start(@uri.host, @uri.port, @proxy_uri.host, @proxy_uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
       request = Net::HTTP::Get.new('/api/v1/active_events/')
       request['Authorization'] = @access_token
 
@@ -39,7 +39,7 @@ class EventBot
   end
 
   def fetchAndRunPlugin(event)
-    Net::HTTP.start(@uri.host, @uri.port, @proxy_uri.host, @proxy_uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |plugin_http|
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |plugin_http|
       plugin_request = Net::HTTP::Get.new('/api/v1/plugin_descriptors/' + event['plugin_id'].to_s + '/')
       plugin_request['Authorization'] = @access_token
 
@@ -71,7 +71,7 @@ class EventBot
   end
 
   def attemptReminderCreate(new_reminder, event)
-    Net::HTTP.start(@uri.host, @uri.port, @proxy_uri.host, @proxy_uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
+    Net::HTTP.start(@uri.host, @uri.port, :use_ssl => @uri.scheme == 'https', :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
       post_request = Net::HTTP::Post.new('/api/v1/reminders?uid=' + event['user_id'].to_s)
       post_request['Authorization'] = @access_token
       post_request.set_form_data(new_reminder)
@@ -144,7 +144,8 @@ end
 uri = URI(site_url)
 proxy_uri = URI(proxy_url)
 
-eventBot = EventBot.new('801fdd387f88ea1c07ecc17559c81359', uri, proxy_uri)
+# eventBot = EventBot.new('801fdd387f88ea1c07ecc17559c81359', uri, proxy_uri)
+eventBot = EventBot.new('5cae4521fb27bb174895cae66179c858', uri, proxy_uri)
 while true
   puts "Fetching and Processing Events"
   eventBot.fetchEvents do |event|

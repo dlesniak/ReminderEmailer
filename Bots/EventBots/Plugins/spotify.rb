@@ -9,7 +9,7 @@ class Spotify
   end
 
   def run_handler(config)    
-    Net::HTTP.start(@album_uri.host, @album_uri.port, 'localhost', 8888) do |http|
+    Net::HTTP.start(@album_uri.host, @album_uri.port) do |http|
       album = config['album'].gsub(' ', '%20')
       album_request = Net::HTTP::Get.new('/search/1/album.json?q=' + album)
 
