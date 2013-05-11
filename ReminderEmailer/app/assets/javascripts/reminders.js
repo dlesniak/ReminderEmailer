@@ -176,7 +176,7 @@ $(document).ready(function() {
             clicked_event.customhtml = json.customhtml;
             //clicked_event.repeat = sub_data.repeat;
             $('#calendar').fullCalendar('updateEvent', clicked_event);
-            if(repeat_int > 0){
+            if(repeat_int > 0 || json.repeat > 0){
               $('#calendar').fullCalendar('refetchEvents');
             }
             $('#editReminder').modal('hide');
