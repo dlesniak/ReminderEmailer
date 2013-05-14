@@ -10,7 +10,7 @@ class Reminder < ActiveRecord::Base
     # This could probably be optimized to one query...
     start_reminders = Reminder.where(:start => start_datetime..end_datetime)
     # only users have their reminders limited to themselves, bots see everything
-    if key.role == 'User'
+    if key.role == 'user' or key.role == 'User'
       # I don't think this is how you should actually query across relationships
       start_reminders = start_reminders.where(:api_key_id => key.id)
     end
