@@ -100,7 +100,7 @@ while true
     mailerBot.fetchReminders do |reminder|
       mailerBot.fetchUserAndSendEmail reminder
     end
-  rescue SystemCallError
+  rescue
     puts "An Exception was raised, probably due to a lack of internet connection. Ignoring and coming back again"
   end
   puts "Going to sleep"
